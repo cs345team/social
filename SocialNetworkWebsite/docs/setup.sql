@@ -4,6 +4,12 @@ CREATE DATABASE `social`;
 
 USE `social`;
 
+CREATE TABLE `image` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`img` longblob NOT NULL,
+	PRIMARY KEY (`id`)
+) AUTO_INCREMENT = 1;
+
 CREATE TABLE `user` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`user_id` int(11) NOT NULL,	
@@ -20,12 +26,6 @@ CREATE TABLE `user` (
 	UNIQUE KEY `userid_UNIQUE` (`user_id`),
 	UNIQUE KEY `email_UNIQUE` (`email`),
 	FOREIGN KEY (`profile_img_id`) REFERENCES `image` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) AUTO_INCREMENT = 1;
-
-CREATE TABLE `image` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`img` longblob NOT NULL,
-	PRIMARY KEY (`id`)
 ) AUTO_INCREMENT = 1;
 
 CREATE TABLE `wall` (
