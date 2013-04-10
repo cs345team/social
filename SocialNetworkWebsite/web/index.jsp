@@ -1,6 +1,6 @@
 <%-- 
     Document   : index
-    Created on : Apr 9, 2013, 6:25:30 PM
+    Created on : Apr 10, 2013, 4:33:50 PM
     Author     : mcsadmin
 --%>
 
@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello Github</h1>
+        <h1>Hello World!</h1>
     </body>
 </html>
