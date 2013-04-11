@@ -1,4 +1,7 @@
 social
 ======
+For test:
 
-social network website
+http://localhost:8084/SocialNetworkWebsite/DbServlet
+
+port number may need to be changed
