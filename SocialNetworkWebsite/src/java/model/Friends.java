@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package socialnetwork.entities;
+package model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -116,7 +116,7 @@ public class Friends implements Serializable {
 
     @Override
     public String toString() {
-        return "socialnetwork.entities.Friends[ id=" + id + " ]";
+        return "model.Friends[ id=" + id + " ]";
     }
     
 }

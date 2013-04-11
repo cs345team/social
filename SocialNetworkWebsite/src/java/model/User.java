@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package socialnetwork.entities;
+package model;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -255,7 +255,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "socialnetwork.entities.User[ id=" + id + " ]";
+        return "model.User[ id=" + id + " ]";
     }
     
 }

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package socialnetwork.entities;
+package model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -139,7 +139,7 @@ public class Wall implements Serializable {
 
     @Override
     public String toString() {
-        return "socialnetwork.entities.Wall[ id=" + id + " ]";
+        return "model.Wall[ id=" + id + " ]";
     }
     
 }
