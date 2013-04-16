@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Social Network Website</title>
+    </h:head>
+    <h:body>
+        <h1>Welcome to our website</h1>
+
+        <h:link outcome="signup.xhtml" value="Sign Up"/>
+        <p/>
+
+        <h:form>
+            <h:panelGrid columns="3">
+                <h:outputLabel for="username">Username</h:outputLabel>
+                <h:inputText id="username" required="true">
+                    <f:ajax event="blur" render="usernameMessage" />
+                </h:inputText>
+                <h:message id="usernameMessage" for="username" />
+
+                <h:outputLabel for="password">Password</h:outputLabel>
+                <h:inputSecret id="password" required="true" redisplay="true">
+                    <f:ajax event="blur" render="passwordMessage" />
+                </h:inputSecret>
+                <h:message id="passwordMessage" for="password" />
+
+                <h:panelGroup />
+                <h:commandButton value="Sign In" action="#{userController.signIn}">
+                    <f:ajax execute="@form" render="@form"/>
+                </h:commandButton>
+                <h:messages globalOnly="true" layout="table"/>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+
