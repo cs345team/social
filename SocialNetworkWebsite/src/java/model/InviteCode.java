@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model;
 
 import java.io.Serializable;
@@ -42,7 +39,7 @@ public class InviteCode implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @Column(name = "code")
-    private int code;
+    private String code;
     @Basic(optional = false)
     @Column(name = "time")
     @Temporal(TemporalType.TIMESTAMP)
@@ -58,7 +55,7 @@ public class InviteCode implements Serializable {
         this.id = id;
     }
 
-    public InviteCode(Integer id, int code, Date time) {
+    public InviteCode(Integer id, String code, Date time) {
         this.id = id;
         this.code = code;
         this.time = time;
@@ -72,11 +69,11 @@ public class InviteCode implements Serializable {
         this.id = id;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

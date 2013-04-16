@@ -54,7 +54,7 @@ CREATE TABLE `friends` (
 CREATE TABLE `invite_code` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`user_id` int(11) NOT NULL,
-	`code` int(11) NOT NULL,
+	`code` char(36) NOT NULL,
 	`time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY(`id`),
 	FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION

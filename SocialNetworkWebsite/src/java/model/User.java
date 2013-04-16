@@ -6,6 +6,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -74,16 +75,16 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "friendId")
     private Collection<Friends> friendsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<Friends> friendsCollection1;
+    private List<Friends> friends;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<InviteCode> inviteCodeCollection;
+    private List<InviteCode> inviteCodes;
     @JoinColumn(name = "profile_img_id", referencedColumnName = "id")
     @ManyToOne
     private Image profileImgId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "posterId")
     private Collection<Wall> wallCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<Wall> wallCollection1;
+    private List<Wall> wallPosts;
 
     public User() {
     }
@@ -190,21 +191,21 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Friends> getFriendsCollection1() {
-        return friendsCollection1;
+    public List<Friends> getFriends() {
+        return friends;
     }
 
-    public void setFriendsCollection1(Collection<Friends> friendsCollection1) {
-        this.friendsCollection1 = friendsCollection1;
+    public void setFriends(List<Friends> friends) {
+        this.friends = friends;
     }
 
     @XmlTransient
-    public Collection<InviteCode> getInviteCodeCollection() {
-        return inviteCodeCollection;
+    public List<InviteCode> getInviteCodes() {
+        return inviteCodes;
     }
 
-    public void setInviteCodeCollection(Collection<InviteCode> inviteCodeCollection) {
-        this.inviteCodeCollection = inviteCodeCollection;
+    public void setInviteCodes(List<InviteCode> inviteCodes) {
+        this.inviteCodes = inviteCodes;
     }
 
     public Image getProfileImgId() {
@@ -225,12 +226,12 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Wall> getWallCollection1() {
-        return wallCollection1;
+    public Collection<Wall> getWallPosts() {
+        return wallPosts;
     }
 
-    public void setWallCollection1(Collection<Wall> wallCollection1) {
-        this.wallCollection1 = wallCollection1;
+    public void setWallPosts(List<Wall> wallPosts) {
+        this.wallPosts = wallPosts;
     }
 
     @Override

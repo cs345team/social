@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model;
 
 import java.io.Serializable;
@@ -31,7 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Friends.findAll", query = "SELECT f FROM Friends f"),
     @NamedQuery(name = "Friends.findById", query = "SELECT f FROM Friends f WHERE f.id = :id"),
-    @NamedQuery(name = "Friends.findByTime", query = "SELECT f FROM Friends f WHERE f.time = :time")})
+    @NamedQuery(name = "Friends.findByTime", query = "SELECT f FROM Friends f WHERE f.time = :time"),
+    @NamedQuery(name = "Friends.findByUserId", query = "SELECT f FROM Friends f WHERE f.userId = :userId")})
 public class Friends implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

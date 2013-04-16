@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model;
 
 import java.io.Serializable;
@@ -32,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Wall.findAll", query = "SELECT w FROM Wall w"),
     @NamedQuery(name = "Wall.findById", query = "SELECT w FROM Wall w WHERE w.id = :id"),
-    @NamedQuery(name = "Wall.findByTime", query = "SELECT w FROM Wall w WHERE w.time = :time")})
+    @NamedQuery(name = "Wall.findByTime", query = "SELECT w FROM Wall w WHERE w.time = :time"),
+    @NamedQuery(name = "Wall.findByUserId", query = "SELECT w FROM Wall w WHERE w.userId = :userId")})
 public class Wall implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
