@@ -60,4 +60,4 @@ CREATE TABLE `invite_code` (
 	FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) AUTO_INCREMENT = 1;
 
-INSERT INTO user(user_id, email, passwd, screen_name, gender) VALUES (10000, 'a@suffolk.edu', '123456', 'John', 0);
+INSERT INTO user(user_id, email, passwd, screen_name, gender) VALUES (10000, 'admin@suffolk.edu', 'admin', 'Administrator', 0);

@@ -9,8 +9,7 @@
     <h:body>
         <h1>Welcome to our website</h1>
 
-        <h:link outcome="signup.xhtml" value="Sign Up"/>
-        <p/>
+        <h:link outcome="register.xhtml" value="Sign Up"/>
 
         <h:form>
             <h:panelGrid columns="3">
@@ -27,7 +26,7 @@
                 <h:message id="passwordMessage" for="password" />
 
                 <h:panelGroup />
-                <h:commandButton value="Sign In" action="#{userController.signIn}">
+                <h:commandButton value="Sign In" action="#{userController.login}">
                     <f:ajax execute="@form" render="@form"/>
                 </h:commandButton>
                 <h:messages globalOnly="true" layout="table"/>
