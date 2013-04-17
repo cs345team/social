@@ -52,7 +52,7 @@ public class DbServlet extends HttpServlet {
             {
                 out.println("null");
             }
-            user = (User) em.createNamedQuery("User.findByUserId").setParameter("userId", 10000).getResultList().get(0);
+            user = (User) em.createNamedQuery("User.findByUserId").setParameter("userId", 10001).getResultList().get(0);
             
             out.println("<h2>" + user.getScreenName() + "</h2>");
             out.println("</body>");

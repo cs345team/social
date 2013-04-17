@@ -4,7 +4,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import model.User;
+import server.EMF;
 
 /**
  *
@@ -17,6 +20,7 @@ public class Register {
     private User user;
     private String invitationCode;
     private boolean valid;
+    EntityManager em = EMF.createEntityManager();
 
     /**
      * Creates a new instance of Register
@@ -33,6 +37,11 @@ public class Register {
     }
 
     public void submit() {
+        user.setUserId(10002);
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        em.persist(user);
+        tx.commit();
         FacesMessage message = new FacesMessage("Registration succesful!");
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
