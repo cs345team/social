@@ -4,28 +4,13 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>Register</title>
+        <title>Registration</title>
     </h:head>
     <h:body>
         <h1>Sign Up</h1>
-        
+        <h2>It's free and always will be.</h2>
+
         <h:form>
-            <h:panelGrid columns="3">
-                <h:outputLabel for="inviteCode">Invitation Code</h:outputLabel>
-                <h:inputText id="inviteCode" value="#{reigster.invitationCode}" required="true">
-                    <f:ajax event="blur" render="invitationCodeMessage"/>
-                </h:inputText>
-                <h:message id="invitationCodeMessage" for="inviteCode"/>
-                
-                <h:panelGroup/>
-                <h:commandButton value="Verify" action="#{register.isCodeValid}">
-                    <f:ajax execute="@form" render="@form"/>
-                </h:commandButton>
-                <h:messages globalOnly="true" layout="table"/>
-            </h:panelGrid>
-        </h:form>
-        
-        <h:form rendered="#{register.valid}">
             <h:panelGrid columns="3">
                 <h:outputLabel for="username">Username</h:outputLabel>
                 <h:inputText id="username" value="#{register.user.screenName}" required="true">
@@ -45,7 +30,7 @@
                 </h:inputText>
                 <h:message id="emailMessage" for="email" />
 
-                <h:outputLabel for="birthdate">Birthdate (yyyy-MM-dd)</h:outputLabel>
+                <h:outputLabel for="birthdate">Birthday (yyyy-MM-dd)</h:outputLabel>
                 <h:inputText id="birthdate" value="#{register.user.birthday}">
                     <f:convertDateTime pattern="yyyy-MM-dd" />
                     <f:ajax event="blur" render="birthdateMessage" />

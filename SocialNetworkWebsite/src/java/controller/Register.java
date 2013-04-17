@@ -25,10 +25,11 @@ public class Register {
         user = new User();
     }
 
-    public void isCodeValid() {
+    public String isCodeValid() {
         valid = true;
         FacesMessage message = new FacesMessage("Congrats!Invitation is valid!");
         FacesContext.getCurrentInstance().addMessage(null, message);
+        return "registration.xhtml?faces-redirect=true&code=" + invitationCode;
     }
 
     public void submit() {

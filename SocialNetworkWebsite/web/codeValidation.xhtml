@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Invitation Code Validation</title>
+    </h:head>
+    <h:body>
+        <h1>Please provide your invitation code</h1>
+        
+        <h:form>
+            <h:panelGrid columns="3">
+                <h:outputLabel for="inviteCode">Invitation Code</h:outputLabel>
+                <h:inputText id="inviteCode" value="#{register.invitationCode}" required="true">
+                    <f:ajax event="blur" render="invitationCodeMessage"/>
+                </h:inputText>
+                <h:message id="invitationCodeMessage" for="inviteCode"/>
+                
+                <h:panelGroup/>
+                <h:commandButton value="Verify" action="#{register.isCodeValid}">
+                    <f:ajax execute="@form" render="@form"/>
+                </h:commandButton>
+                <h:messages globalOnly="true" layout="table"/>
+            </h:panelGrid>
+        </h:form>
+        
+    </h:body>
+</html>
+
