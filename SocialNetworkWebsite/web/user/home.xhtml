@@ -7,8 +7,10 @@
     </h:head>
     <h:body>
         <h1>Hello</h1>
-        
-        <h:link>Sign Out</h:link>
+
+        <h:form>
+            <h:commandLink action="#{userController.logout}">Sign Out</h:commandLink>
+        </h:form>
     </h:body>
 </html>
 
