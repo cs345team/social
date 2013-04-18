@@ -20,7 +20,7 @@ public class UserController {
     private String screenName;
     private String passWd;
     private EntityManager em;
-    private boolean isLoggedIn = false;
+    private boolean isLoggedIn;
 
     /**
      * Creates a new instance of UserController
@@ -49,8 +49,9 @@ public class UserController {
     }
 
     public String logout() {
+        isLoggedIn = false;
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "index.xhtml?faces-redirect=true";
+        return "/index.xhtml?faces-redirect=true";
     }
 
     public User getUser() {
