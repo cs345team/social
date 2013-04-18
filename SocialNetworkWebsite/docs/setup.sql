@@ -14,17 +14,20 @@ CREATE TABLE `user` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`user_id` int(11) NOT NULL,	
 	`email` varchar(255) NOT NULL,
-	`passwd` text NOT NULL,
-	`screen_name`text NOT NULL,
+	`passwd` varchar(20) NOT NULL,
+	`screen_name`varchar(20) NOT NULL,
 	`real_name` text,
 	`gender` tinyint(1),
 	`birthday` varchar(16),
 	`interests` text,
 	`profile_img_id` int(11),
 	`config` text,
+        `confirmation_code` char(36),
+        `confirmation_status` tinyint(1),
 	PRIMARY KEY(`id`),
 	UNIQUE KEY `userid_UNIQUE` (`user_id`),
 	UNIQUE KEY `email_UNIQUE` (`email`),
+        UNIQUE KEY `screenname_UNIQUE` (`screen_name`),
 	FOREIGN KEY (`profile_img_id`) REFERENCES `image` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) AUTO_INCREMENT = 1;
 

@@ -20,13 +20,14 @@ public class Register {
     private User user;
     private String invitationCode;
     private boolean valid;
-    EntityManager em = EMF.createEntityManager();
+    EntityManager em;
 
     /**
      * Creates a new instance of Register
      */
     public Register() {
         user = new User();
+        em = EMF.createEntityManager();
     }
 
     public String isCodeValid() {

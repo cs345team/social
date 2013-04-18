@@ -37,8 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId"),
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
     @NamedQuery(name = "User.findByGender", query = "SELECT u FROM User u WHERE u.gender = :gender"),
-    @NamedQuery(name = "User.findByBirthday", query = "SELECT u FROM User u WHERE u.birthday = :birthday")})
+    @NamedQuery(name = "User.findByBirthday", query = "SELECT u FROM User u WHERE u.birthday = :birthday"),
+    @NamedQuery(name = "User.findByScreenName", query = "SELECT u FROM User u WHERE u.screenName = :screenName")})
 public class User implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,11 +54,9 @@ public class User implements Serializable {
     @Column(name = "email")
     private String email;
     @Basic(optional = false)
-    @Lob
     @Column(name = "passwd")
     private String passwd;
     @Basic(optional = false)
-    @Lob
     @Column(name = "screen_name")
     private String screenName;
     @Lob
@@ -72,6 +72,10 @@ public class User implements Serializable {
     @Lob
     @Column(name = "config")
     private String config;
+    @Column(name = "confirmation_code")
+    private String confirmationCode;
+    @Column(name = "confirmation_status")
+    private Integer confirmationStatus;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "friendId")
     private Collection<Friends> friendsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
@@ -181,6 +185,22 @@ public class User implements Serializable {
         this.config = config;
     }
 
+    public String getConfirmationCode() {
+        return confirmationCode;
+    }
+
+    public void setConfirmationCode(String confirmationCode) {
+        this.confirmationCode = confirmationCode;
+    }
+
+    public int getConfirmationStatus() {
+        return confirmationStatus;
+    }
+
+    public void setConfirmationStatus(int confirmationStatus) {
+        this.confirmationStatus = confirmationStatus;
+    }
+
     @XmlTransient
     public Collection<Friends> getFriendsCollection() {
         return friendsCollection;
@@ -258,5 +278,4 @@ public class User implements Serializable {
     public String toString() {
         return "model.User[ id=" + id + " ]";
     }
-    
 }
