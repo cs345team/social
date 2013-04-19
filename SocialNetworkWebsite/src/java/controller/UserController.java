@@ -30,7 +30,6 @@ public class UserController {
     }
 
     public String login() {
-        em = EMF.createEntityManager();
         user = (User) em.createNamedQuery("User.findByScreenName").setParameter("screenName", screenName).getResultList().get(0);
 
         if (user == null) {
