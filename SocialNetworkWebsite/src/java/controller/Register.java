@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -7,6 +8,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import model.InviteCode;
 import model.User;
 import server.EMF;
 
@@ -46,9 +48,22 @@ public class Register {
     }
 
     public void isCodeValid() {
-        valid = true;
-        FacesMessage message = new FacesMessage("Congrats!Invitation is valid!");
-        FacesContext.getCurrentInstance().addMessage(component.getClientId(), message);
+        InviteCode code = (InviteCode) em.createNamedQuery("InviteCode.findByCode").setParameter("code", inviteCode).getResultList().get(0);
+        Date now = new Date();
+
+        if ((code != null) && (now.getTime() - code.getTime().getTime()) <= 30 * 24 * 60 * 60 * 1000) {
+            valid = true;
+            FacesMessage message = new FacesMessage("Congrats!Invitation Code is valid!");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        } else {
+            valid = false;
+            FacesMessage message = new FacesMessage("Sorry!Invitation Code is not valid or already expired.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+//           //For test
+//                    valid = true;
+//            FacesMessage message = new FacesMessage("Congrats!Invitation Code is valid!");
+//            FacesContext.getCurrentInstance().addMessage(component.getClientId(), message);
     }
 
     public User getUser() {

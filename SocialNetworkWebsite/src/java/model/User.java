@@ -34,7 +34,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
-    @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId"),
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
     @NamedQuery(name = "User.findByGender", query = "SELECT u FROM User u WHERE u.gender = :gender"),
     @NamedQuery(name = "User.findByBirthday", query = "SELECT u FROM User u WHERE u.birthday = :birthday"),
@@ -49,9 +48,6 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "user_id")
-    private int userId;
     @Basic(optional = false)
     @Column(name = "email")
     private String email;
@@ -95,13 +91,10 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(Integer id) {
-        this.id = id;
-    }
-
-    public User(Integer id, int userId, String email, String passwd, String screenName) {
-        this.id = id;
-        this.userId = userId;
+//    public User(Integer id) {
+//        this.id = id;
+//    }
+    public User(String email, String passwd, String screenName) {
         this.email = email;
         this.passwd = passwd;
         this.screenName = screenName;
@@ -113,14 +106,6 @@ public class User implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public String getEmail() {

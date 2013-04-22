@@ -14,11 +14,13 @@
             <h:panelGrid columns="4">
                 <h:outputLabel for="inviteCode">Invitation Code</h:outputLabel>
                 <h:inputText id="inviteCode" value="#{register.inviteCode}" 
-                             requiredMessage="Required" required="true">
+                             requiredMessage="Required" required="true"
+                              binding="#{register.component}">
                     <f:ajax event="blur" render="inviteCodeMessage"/>
                 </h:inputText>
                 <h:commandButton id="checkValid" value="Check Valid" 
                                  action="#{register.isCodeValid}">
+                    <f:ajax execute="checkValid" render="inviteCodeMessage"/>
                 </h:commandButton>
                 <h:message id="inviteCodeMessage" for="inviteCode"/>
 
