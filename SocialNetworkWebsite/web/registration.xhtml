@@ -13,15 +13,18 @@
         <h:form>
             <h:panelGrid columns="4">
                 <h:outputLabel for="inviteCode">Invitation Code</h:outputLabel>
-                <h:inputText id="inviteCode" value="#{register.inviteCode}" requiredMessage="Required" required="true">
+                <h:inputText id="inviteCode" value="#{register.inviteCode}" 
+                             requiredMessage="Required" required="true">
                     <f:ajax event="blur" render="inviteCodeMessage"/>
                 </h:inputText>
-                <h:commandButton id="checkValid" value="Check Valid" action="#{register.isCodeValid()}">
+                <h:commandButton id="checkValid" value="Check Valid" 
+                                 action="#{register.isCodeValid}">
                 </h:commandButton>
                 <h:message id="inviteCodeMessage" for="inviteCode"/>
 
                 <h:outputLabel for="username">Username</h:outputLabel>
-                <h:inputText id="username" value="#{register.user.screenName}" requiredMessage="Required" required="true">
+                <h:inputText id="username" value="#{register.user.screenName}" 
+                             requiredMessage="Required" required="true">
                     <f:validator validatorId="usernameValidator"/>
                     <f:ajax event="blur" render="usernameMessage" />
                 </h:inputText>
@@ -29,7 +32,8 @@
                 <h:message id="usernameMessage" for="username" />
 
                 <h:outputLabel for="password">Password</h:outputLabel>
-                <h:inputSecret id="password" value="#{register.user.passwd}" required="true" requiredMessage="Required" redisplay="true">
+                <h:inputSecret id="password" value="#{register.user.passwd}" 
+                               required="true" requiredMessage="Required" redisplay="true">
                     <f:validator validatorId="passwordValidator"/>
                     <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
                     <f:ajax event="blur" render="passwordMessage" />
@@ -38,14 +42,17 @@
                 <h:message id="passwordMessage" for="password" />
 
                 <h:outputLabel for="confirmPassword">Confirm Password</h:outputLabel>
-                <h:inputSecret id="confirmPassword" value="#{register.confPassword}" required="true" requiredMessage="Required" binding="#{confirmPassword}" redisplay="true">
+                <h:inputSecret id="confirmPassword" value="#{register.confPassword}" 
+                               required="true" requiredMessage="Required" 
+                               binding="#{confirmPassword}" redisplay="true">
                     <f:ajax event="blur" render="confirmPasswordMessage" />
                 </h:inputSecret>
                 <h:panelGroup/>
                 <h:message id="confirmPasswordMessage" for="confirmPassword" />
 
                 <h:outputLabel for="email">Email</h:outputLabel>
-                <h:inputText id="email" value="#{register.user.email}" required="true" requiredMessage="Required">
+                <h:inputText id="email" value="#{register.user.email}" 
+                             required="true" requiredMessage="Required">
                     <f:validator validatorId="emailValidator"/>
                     <f:ajax event="blur" render="emailMessage" />
                 </h:inputText>

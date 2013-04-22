@@ -20,7 +20,7 @@ import javax.faces.validator.ValidatorException;
 @FacesValidator("usernameValidator")
 public class UsernameValidator implements Validator {
 
-    private static final String USERNAME_PATTERN = "^[a-zA-Z0-9-_]+$";
+    private static final String USERNAME_PATTERN = "^[[A-Za-z0-9]+[A-Za-z0-9,._-]*]{3,20}$";
     private Pattern pattern;
     private Matcher matcher;
 
@@ -33,7 +33,7 @@ public class UsernameValidator implements Validator {
 
         matcher = pattern.matcher(value.toString());
         if (!matcher.matches()) {
-            FacesMessage message = new FacesMessage("Username validation failed.", "Username should only contain alphanumeric dashes and underscores without spaces.");
+            FacesMessage message = new FacesMessage("Username validation failed.", "Contains 3-20 alphanumeric, dashes and underscores without spaces.");
             message.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ValidatorException(message);
         }
