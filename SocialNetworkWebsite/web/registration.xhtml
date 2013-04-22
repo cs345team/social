@@ -15,7 +15,7 @@
                 <h:outputLabel for="inviteCode">Invitation Code</h:outputLabel>
                 <h:inputText id="inviteCode" value="#{register.inviteCode}" 
                              requiredMessage="Required" required="true"
-                              binding="#{register.component}">
+                             binding="#{register.component}">
                     <f:ajax event="blur" render="inviteCodeMessage"/>
                 </h:inputText>
                 <h:commandButton id="checkValid" value="Check Valid" 
@@ -63,12 +63,26 @@
 
                 <h:panelGroup />
                 <h:commandButton value="Register" action="#{register.submit}">
-                    <f:ajax execute="@form" render="@form" />
+                    <f:ajax execute="@form" render="@form :greeting :back" />
                 </h:commandButton>
                 <h:panelGroup/>
                 <h:messages globalOnly="true" layout="table" />
             </h:panelGrid>
         </h:form>
+
+        <br/>
+
+        <h:panelGroup id="greeting">
+            <h:outputLabel rendered="#{register.registered}">
+                <h2>Welcome! #{register.user.screenName}. A confirmation letter has been
+                    sent to email address #{register.user.email}.
+                </h2>
+            </h:outputLabel>
+        </h:panelGroup>
+
+        <h:panelGroup id="back">
+            <h:link rendered="#{register.registered}" outcome="index.html">Back to front page</h:link> 
+        </h:panelGroup>
     </h:body>
 </html>
 

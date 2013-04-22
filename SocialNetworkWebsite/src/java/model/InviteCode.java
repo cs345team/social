@@ -1,4 +1,3 @@
-
 package model;
 
 import java.io.Serializable;
@@ -31,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "InviteCode.findByCode", query = "SELECT i FROM InviteCode i WHERE i.code = :code"),
     @NamedQuery(name = "InviteCode.findByTime", query = "SELECT i FROM InviteCode i WHERE i.time = :time")})
 public class InviteCode implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,7 +54,7 @@ public class InviteCode implements Serializable {
     public InviteCode(Integer id) {
         this.id = id;
     }
-
+    
     public InviteCode(Integer id, String code, Date time) {
         this.id = id;
         this.code = code;
@@ -117,5 +117,4 @@ public class InviteCode implements Serializable {
     public String toString() {
         return "model.InviteCode[ id=" + id + " ]";
     }
-    
 }

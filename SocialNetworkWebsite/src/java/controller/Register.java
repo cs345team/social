@@ -26,6 +26,8 @@ public class Register {
     private Boolean valid;
     private UIComponent component;
     private String confPassword;
+    private Boolean registered;
+    private InviteCode code;
 
     /**
      * Creates a new instance of Register
@@ -36,19 +38,34 @@ public class Register {
     }
 
     public void submit() {
-//        user.setUserId(10001);
-//        EntityTransaction tx = em.getTransaction();
-//        tx.begin();
-//        em.persist(user);
-//        em.
-//        tx.commit();
-        FacesMessage message;
-        message = new FacesMessage("Registration succesful!");
-        FacesContext.getCurrentInstance().addMessage(null, message);
+        if (valid == true) {
+            EntityTransaction tx = em.getTransaction();
+            tx.begin();
+            em.persist(user);
+            em.remove(code);
+            tx.commit();
+            registered = true;
+            FacesMessage message = new FacesMessage("Registration succesful!");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            valid = false;
+        } else {
+            registered = false;
+            FacesMessage message = new FacesMessage("Please check your invitation code valid or not!");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+
+
     }
 
     public void isCodeValid() {
-        InviteCode code = (InviteCode) em.createNamedQuery("InviteCode.findByCode").setParameter("code", inviteCode).getResultList().get(0);
+        // For test
+        //InviteCode testCode = new InviteCode("11111", new Date());
+//        EntityTransaction tx = em.getTransaction();
+//        tx.begin();
+//        em.persist(testCode);
+//        tx.commit();
+        
+        code = (InviteCode) em.createNamedQuery("InviteCode.findByCode").setParameter("code", inviteCode).getResultList().get(0);
         Date now = new Date();
 
         if ((code != null) && (now.getTime() - code.getTime().getTime()) <= 30 * 24 * 60 * 60 * 1000) {
@@ -60,8 +77,9 @@ public class Register {
             FacesMessage message = new FacesMessage("Sorry!Invitation Code is not valid or already expired.");
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
+        
 //           //For test
-//                    valid = true;
+//            valid = true;
 //            FacesMessage message = new FacesMessage("Congrats!Invitation Code is valid!");
 //            FacesContext.getCurrentInstance().addMessage(component.getClientId(), message);
     }
@@ -100,5 +118,13 @@ public class Register {
 
     public void setConfPassword(String confPassword) {
         this.confPassword = confPassword;
+    }
+
+    public Boolean getRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(Boolean registered) {
+        this.registered = registered;
     }
 }

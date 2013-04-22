@@ -91,10 +91,12 @@ public class User implements Serializable {
     public User() {
     }
 
-//    public User(Integer id) {
-//        this.id = id;
-//    }
-    public User(String email, String passwd, String screenName) {
+    public User(Integer id) {
+        this.id = id;
+    }
+    
+    public User(Integer id, String email, String passwd, String screenName) {
+        this.id = id;
         this.email = email;
         this.passwd = passwd;
         this.screenName = screenName;
