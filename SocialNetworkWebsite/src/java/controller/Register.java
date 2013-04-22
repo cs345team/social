@@ -11,6 +11,7 @@ import javax.persistence.EntityTransaction;
 import model.InviteCode;
 import model.User;
 import server.EMF;
+import server.EmailSender;
 
 /**
  *
@@ -48,6 +49,7 @@ public class Register {
             FacesMessage message = new FacesMessage("Registration succesful!");
             FacesContext.getCurrentInstance().addMessage(null, message);
             valid = false;
+            //EmailSender.sendEmailToUser(user, inviteCode);
         } else {
             registered = false;
             FacesMessage message = new FacesMessage("Please check your invitation code valid or not!");
