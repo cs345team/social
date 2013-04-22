@@ -23,6 +23,7 @@ public class Register {
     private String inviteCode;
     private Boolean valid;
     private UIComponent component;
+    private String confPassword;
 
     /**
      * Creates a new instance of Register
@@ -37,6 +38,7 @@ public class Register {
 //        EntityTransaction tx = em.getTransaction();
 //        tx.begin();
 //        em.persist(user);
+//        em.
 //        tx.commit();
         FacesMessage message;
         message = new FacesMessage("Registration succesful!");
@@ -75,5 +77,13 @@ public class Register {
 
     public void setComponent(UIComponent component) {
         this.component = component;
+    }
+
+    public String getConfPassword() {
+        return confPassword;
+    }
+
+    public void setConfPassword(String confPassword) {
+        this.confPassword = confPassword;
     }
 }
