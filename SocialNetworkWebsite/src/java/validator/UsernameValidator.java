@@ -17,15 +17,15 @@ import javax.faces.validator.ValidatorException;
  *
  * @author Madfrog
  */
-@FacesValidator("emailValidator")
-public class EmailValidator implements Validator {
+@FacesValidator("usernameValidator")
+public class UsernameValidator implements Validator {
 
-    private static final String EMAIL_PATTERN = "^([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)$";
+    private static final String USERNAME_PATTERN = "^[a-zA-Z0-9-_]+$";
     private Pattern pattern;
     private Matcher matcher;
 
-    public EmailValidator() {
-        pattern = Pattern.compile(EMAIL_PATTERN);
+    public UsernameValidator() {
+        pattern = Pattern.compile(USERNAME_PATTERN);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class EmailValidator implements Validator {
 
         matcher = pattern.matcher(value.toString());
         if (!matcher.matches()) {
-            FacesMessage message = new FacesMessage("E-mail validation failed.", "Invalid E-mail format.");
+            FacesMessage message = new FacesMessage("Username validation failed.", "Username should only contain alphanumeric dashes and underscores without spaces.");
             message.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ValidatorException(message);
         }

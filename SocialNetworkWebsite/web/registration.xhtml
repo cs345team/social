@@ -22,6 +22,7 @@
 
                 <h:outputLabel for="username">Username</h:outputLabel>
                 <h:inputText id="username" value="#{register.user.screenName}" requiredMessage="Required" required="true">
+                    <f:validator validatorId="usernameValidator"/>
                     <f:ajax event="blur" render="usernameMessage" />
                 </h:inputText>
                 <h:panelGroup/>
