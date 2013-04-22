@@ -11,23 +11,35 @@
         <h2>It's free and always will be.</h2>
 
         <h:form>
-            <h:panelGrid columns="3">
+            <h:panelGrid columns="4">
+                <h:outputLabel for="inviteCode">Invitation Code</h:outputLabel>
+                <h:inputText id="inviteCode" value="#{register.inviteCode}" required="true">
+                    <f:ajax event="blur" render="inviteCodeMessage"/>
+                </h:inputText>
+                <h:commandButton id="checkValid" value="Check Valid" action="#{register.isCodeValid()}">
+                </h:commandButton>
+                <h:message id="inviteCodeMessage" for="inviteCode"/>
+
                 <h:outputLabel for="username">Username</h:outputLabel>
                 <h:inputText id="username" value="#{register.user.screenName}" required="true">
                     <f:ajax event="blur" render="usernameMessage" />
                 </h:inputText>
+                <h:panelGroup/>
                 <h:message id="usernameMessage" for="username" />
 
                 <h:outputLabel for="password">Password</h:outputLabel>
                 <h:inputSecret id="password" value="#{register.user.passwd}" required="true" redisplay="true">
                     <f:ajax event="blur" render="passwordMessage" />
                 </h:inputSecret>
+                <h:panelGroup/>
                 <h:message id="passwordMessage" for="password" />
 
                 <h:outputLabel for="email">Email</h:outputLabel>
                 <h:inputText id="email" value="#{register.user.email}" required="true">
                     <f:ajax event="blur" render="emailMessage" />
                 </h:inputText>
+                <h:panelGroup/>
+
                 <h:message id="emailMessage" for="email" />
 
                 <h:outputLabel for="birthdate">Birthday (yyyy-MM-dd)</h:outputLabel>
@@ -35,12 +47,15 @@
                     <f:convertDateTime pattern="yyyy-MM-dd" />
                     <f:ajax event="blur" render="birthdateMessage" />
                 </h:inputText>
+                <h:panelGroup/>
+
                 <h:message id="birthdateMessage" for="birthdate" />
 
                 <h:panelGroup />
                 <h:commandButton value="Register" action="#{register.submit}">
                     <f:ajax execute="@form" render="@form" />
                 </h:commandButton>
+                <h:panelGroup/>
                 <h:messages globalOnly="true" layout="table" />
             </h:panelGrid>
         </h:form>
