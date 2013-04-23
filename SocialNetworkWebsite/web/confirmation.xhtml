@@ -8,8 +8,12 @@
     <h:body>
         <h1>Confirmation</h1>
         <h:form>
-            <h:outputText value="Confirmation Success. Welcome #{confirmController.userName}" rendered="#{confirmController.confirm()}"></h:outputText>
-            <h:outputText value="Confirmation Failed." rendered="#{!confirmController.confirm()}"></h:outputText>
+            <h:outputText value="Confirmation Success. Welcome #{confirmController.userName}" 
+                          rendered="#{confirmController.confirm()}">
+            </h:outputText>
+            <h:outputText value="Confirmation Failed." 
+                          rendered="#{!confirmController.confirm()}">
+            </h:outputText>
             
         </h:form>
         
