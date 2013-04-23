@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author mcsadmin
+ * @author Xi
  */
 @Entity
 @Table(name = "wall")

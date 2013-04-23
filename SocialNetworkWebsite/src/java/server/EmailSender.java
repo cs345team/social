@@ -17,7 +17,7 @@ import javax.mail.internet.MimeMessage;
 
 /**
  *
- * @author mcsadmin
+ * @author Jichao
  */
 public class EmailSender {
 

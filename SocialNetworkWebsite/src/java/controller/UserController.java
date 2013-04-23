@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -30,12 +32,12 @@ public class UserController {
     }
 
     public String login() {
-        user = (User) em.createNamedQuery("User.findByScreenName").setParameter("screenName", screenName).getResultList().get(0);
+        List<User> users = (List<User>) em.createNamedQuery("User.findByScreenName").setParameter("screenName", screenName).getResultList();
 
-        if (user == null) {
+        if (users.isEmpty()) {
             FacesMessage message = new FacesMessage("User name does not exist!");
             FacesContext.getCurrentInstance().addMessage(null, message);
-        } else if (!user.getPasswd().equals(passWd)) {
+        } else if (!(user = users.get(0)).getPasswd().equals(passWd)) {
             FacesMessage message = new FacesMessage("User name and password dose not match!");
             FacesContext.getCurrentInstance().addMessage(null, message);
         } else {
