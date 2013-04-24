@@ -10,6 +10,7 @@ import javax.persistence.EntityTransaction;
 import model.InviteCode;
 import model.User;
 import server.EMF;
+import server.EmailSender;
 
 /**
  *
@@ -34,6 +35,7 @@ public class Register {
     public Register() {
         user = new User();
         em = EMF.createEntityManager();
+        valid = false;
     }
 
     public void submit() {
@@ -44,8 +46,14 @@ public class Register {
             //em.remove(code);
             tx.commit();
             registered = true;
+            EmailSender es = new EmailSender(user, inviteCode);
+            String result = es.sendEmailToUser();
+            System.out.println(result);
+            
+            //FacesMessage message = new FacesMessage(result);
             FacesMessage message = new FacesMessage("Registration succesful!");
             FacesContext.getCurrentInstance().addMessage(null, message);
+            
             valid = false;
         } else {
             registered = false;
