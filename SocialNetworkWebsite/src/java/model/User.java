@@ -5,7 +5,9 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -76,16 +78,16 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "friendId")
     private Collection<Friends> friendsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<Friends> friends;
+    private List<Friends> friends = new ArrayList<Friends>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<InviteCode> inviteCodes;
+    private List<InviteCode> inviteCodes = new ArrayList<InviteCode>();
     @JoinColumn(name = "profile_img_id", referencedColumnName = "id")
     @ManyToOne
     private Image profileImgId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "posterId")
     private Collection<Wall> wallCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<Wall> wallPosts;
+    private List<Wall> wallPosts = new ArrayList<Wall>();
 
     public User() {
     }
@@ -199,20 +201,20 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Friends> getFriends() {
+    public List<Friends> getFriends() {
         return friends;
     }
 
-    public void setFriends(Collection<Friends> friends) {
+    public void setFriends(List<Friends> friends) {
         this.friends = friends;
     }
 
     @XmlTransient
-    public Collection<InviteCode> getInviteCodes() {
+    public List<InviteCode> getInviteCodes() {
         return inviteCodes;
     }
 
-    public void setInviteCodes(Collection<InviteCode> inviteCodes) {
+    public void setInviteCodes(List<InviteCode> inviteCodes) {
         this.inviteCodes = inviteCodes;
     }
 
@@ -234,11 +236,11 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Wall> getWallPosts() {
+    public List<Wall> getWallPosts() {
         return wallPosts;
     }
 
-    public void setWallPosts(Collection<Wall> wallPosts) {
+    public void setWallPosts(List<Wall> wallPosts) {
         this.wallPosts = wallPosts;
     }
 

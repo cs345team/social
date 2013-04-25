@@ -28,7 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "InviteCode.findAll", query = "SELECT i FROM InviteCode i"),
     @NamedQuery(name = "InviteCode.findById", query = "SELECT i FROM InviteCode i WHERE i.id = :id"),
     @NamedQuery(name = "InviteCode.findByCode", query = "SELECT i FROM InviteCode i WHERE i.code = :code"),
-    @NamedQuery(name = "InviteCode.findByTime", query = "SELECT i FROM InviteCode i WHERE i.time = :time")})
+    @NamedQuery(name = "InviteCode.findByTime", query = "SELECT i FROM InviteCode i WHERE i.time = :time"),
+    @NamedQuery(name = "InviteCode.findByOwner", query = "SELECT i FROM InviteCode i WHERE i.owner = :owner")})
 public class InviteCode implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,7 +47,7 @@ public class InviteCode implements Serializable {
     private Date time;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User userId;
+    private User owner;
 
     public InviteCode() {
     }
@@ -85,12 +86,12 @@ public class InviteCode implements Serializable {
         this.time = time;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getOwner() {
+        return owner;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     @Override

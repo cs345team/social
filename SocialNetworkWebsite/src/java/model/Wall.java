@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Wall.findAll", query = "SELECT w FROM Wall w"),
     @NamedQuery(name = "Wall.findById", query = "SELECT w FROM Wall w WHERE w.id = :id"),
     @NamedQuery(name = "Wall.findByTime", query = "SELECT w FROM Wall w WHERE w.time = :time"),
-    @NamedQuery(name = "Wall.findByUserId", query = "SELECT w FROM Wall w WHERE w.userId = :userId")})
+    @NamedQuery(name = "Wall.findByUser", query = "SELECT w FROM Wall w WHERE w.user = :user")})
 public class Wall implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,13 +47,13 @@ public class Wall implements Serializable {
     private String text;
     @JoinColumn(name = "img_id", referencedColumnName = "id")
     @ManyToOne
-    private Image imgId;
+    private Image image;
     @JoinColumn(name = "poster_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User posterId;
+    private User poster;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User userId;
+    private User user;
 
     public Wall() {
     }
@@ -91,29 +91,35 @@ public class Wall implements Serializable {
         this.text = text;
     }
 
-    public Image getImgId() {
-        return imgId;
+    public Image getImage() {
+        return image;
     }
 
-    public void setImgId(Image imgId) {
-        this.imgId = imgId;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
-    public User getPosterId() {
-        return posterId;
+
+
+    public User getPoster() {
+        return poster;
     }
 
-    public void setPosterId(User posterId) {
-        this.posterId = posterId;
+    public void setPoster(User poster) {
+        this.poster = poster;
     }
 
-    public User getUserId() {
-        return userId;
+
+
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
+
+
 
     @Override
     public int hashCode() {

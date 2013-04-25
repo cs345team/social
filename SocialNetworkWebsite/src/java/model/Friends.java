@@ -1,4 +1,3 @@
-
 package model;
 
 import java.io.Serializable;
@@ -29,8 +28,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Friends.findAll", query = "SELECT f FROM Friends f"),
     @NamedQuery(name = "Friends.findById", query = "SELECT f FROM Friends f WHERE f.id = :id"),
     @NamedQuery(name = "Friends.findByTime", query = "SELECT f FROM Friends f WHERE f.time = :time"),
-    @NamedQuery(name = "Friends.findByUserId", query = "SELECT f FROM Friends f WHERE f.userId = :userId")})
+    @NamedQuery(name = "Friends.findByUser", query = "SELECT f FROM Friends f WHERE f.user = :user")})
 public class Friends implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,10 +43,10 @@ public class Friends implements Serializable {
     private Date time;
     @JoinColumn(name = "friend_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User friendId;
+    private User friend;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User userId;
+    private User user;
 
     public Friends() {
     }
@@ -76,20 +76,20 @@ public class Friends implements Serializable {
         this.time = time;
     }
 
-    public User getFriendId() {
-        return friendId;
+    public User getFriend() {
+        return friend;
     }
 
-    public void setFriendId(User friendId) {
-        this.friendId = friendId;
+    public void setFriend(User friend) {
+        this.friend = friend;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -116,5 +116,4 @@ public class Friends implements Serializable {
     public String toString() {
         return "model.Friends[ id=" + id + " ]";
     }
-    
 }
