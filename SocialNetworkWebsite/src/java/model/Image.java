@@ -38,9 +38,9 @@ public class Image implements Serializable {
     @Lob
     @Column(name = "img")
     private byte[] img;
-    @OneToMany(mappedBy = "profileImgId")
+    @OneToMany(mappedBy = "profileImg")
     private Collection<User> userCollection;
-    @OneToMany(mappedBy = "imgId")
+    @OneToMany(mappedBy = "image")
     private Collection<Wall> wallCollection;
 
     public Image() {

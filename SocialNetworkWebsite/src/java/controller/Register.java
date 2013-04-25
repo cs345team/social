@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -43,7 +44,7 @@ public class Register {
             EntityTransaction tx = em.getTransaction();
             tx.begin();
             em.persist(user);
-            //em.remove(code);
+            em.remove(code);
             tx.commit();
             registered = true;
             EmailSender es = new EmailSender(user, inviteCode);
@@ -71,24 +72,24 @@ public class Register {
 //        tx.begin();
 //        em.persist(testCode);
 //        tx.commit();
-        
-//        code = (InviteCode) em.createNamedQuery("InviteCode.findByCode").setParameter("code", inviteCode).getResultList().get(0);
-//        Date now = new Date();
-//
-//        if ((code != null) && (now.getTime() - code.getTime().getTime()) <= 30 * 24 * 60 * 60 * 1000) {
-//            valid = true;
-//            FacesMessage message = new FacesMessage("Congrats!Invitation Code is valid!");
-//            FacesContext.getCurrentInstance().addMessage(null, message);
-//        } else {
-//            valid = false;
-//            FacesMessage message = new FacesMessage("Sorry!Invitation Code is not valid or already expired.");
-//            FacesContext.getCurrentInstance().addMessage(null, message);
-//        }
-        
-           //For test
+        System.out.println(inviteCode);
+        code = (InviteCode) em.createNamedQuery("InviteCode.findByCode").setParameter("code", inviteCode).getSingleResult();
+        Date now = new Date();
+        System.out.println(inviteCode);
+        if ((code != null) && (now.getTime() - code.getTime().getTime()) <= 30 * 24 * 60 * 60 * 1000) {
             valid = true;
             FacesMessage message = new FacesMessage("Congrats!Invitation Code is valid!");
-            FacesContext.getCurrentInstance().addMessage(component.getClientId(), message);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        } else {
+            valid = false;
+            FacesMessage message = new FacesMessage("Sorry!Invitation Code is not valid or already expired.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+        
+//           //For test
+//            valid = true;
+//            FacesMessage message = new FacesMessage("Congrats!Invitation Code is valid!");
+//            FacesContext.getCurrentInstance().addMessage(component.getClientId(), message);
     }
 
     public User getUser() {

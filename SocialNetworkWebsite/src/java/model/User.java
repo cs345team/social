@@ -75,18 +75,18 @@ public class User implements Serializable {
     private String confirmationCode;
     @Column(name = "confirmation_status")
     private Integer confirmationStatus;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "friendId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "friend")
     private Collection<Friends> friendsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Friends> friends = new ArrayList<Friends>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<InviteCode> inviteCodes = new ArrayList<InviteCode>();
     @JoinColumn(name = "profile_img_id", referencedColumnName = "id")
     @ManyToOne
-    private Image profileImgId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "posterId")
+    private Image profileImg;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "poster")
     private Collection<Wall> wallCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Wall> wallPosts = new ArrayList<Wall>();
 
     public User() {
@@ -95,7 +95,7 @@ public class User implements Serializable {
     public User(Integer id) {
         this.id = id;
     }
-    
+
     public User(Integer id, String email, String passwd, String screenName) {
         this.id = id;
         this.email = email;
@@ -183,11 +183,11 @@ public class User implements Serializable {
         this.confirmationCode = confirmationCode;
     }
 
-    public int getConfirmationStatus() {
+    public Integer getConfirmationStatus() {
         return confirmationStatus;
     }
 
-    public void setConfirmationStatus(int confirmationStatus) {
+    public void setConfirmationStatus(Integer confirmationStatus) {
         this.confirmationStatus = confirmationStatus;
     }
 
@@ -218,12 +218,12 @@ public class User implements Serializable {
         this.inviteCodes = inviteCodes;
     }
 
-    public Image getProfileImgId() {
-        return profileImgId;
+    public Image getProfileImg() {
+        return profileImg;
     }
 
-    public void setProfileImgId(Image profileImgId) {
-        this.profileImgId = profileImgId;
+    public void setProfileImg(Image profileImg) {
+        this.profileImg = profileImg;
     }
 
     @XmlTransient
