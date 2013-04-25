@@ -39,7 +39,7 @@ public class Wall implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "time")
+    @Column(name = "posted_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
     @Lob

@@ -42,7 +42,7 @@ public class InviteCode implements Serializable {
     @Column(name = "code")
     private String code;
     @Basic(optional = false)
-    @Column(name = "time")
+    @Column(name = "created_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -55,7 +55,7 @@ public class InviteCode implements Serializable {
     public InviteCode(Integer id) {
         this.id = id;
     }
-    
+
     public InviteCode(Integer id, String code, Date time) {
         this.id = id;
         this.code = code;

@@ -31,7 +31,7 @@ CREATE TABLE `user` (
 
 CREATE TABLE `wall` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`posted_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`user_id` int(11) NOT NULL,
 	`poster_id` int(11) NOT NULL,	
 	`text` text,
@@ -44,7 +44,7 @@ CREATE TABLE `wall` (
 
 CREATE TABLE `friends` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`user_id` int(11) NOT NULL,	
 	`friend_id` int(11) NOT NULL,
 	PRIMARY KEY(`id`),
@@ -56,9 +56,12 @@ CREATE TABLE `invite_code` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`user_id` int(11) NOT NULL,
 	`code` char(36) NOT NULL,
-	`time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY(`id`),
 	FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) AUTO_INCREMENT = 1;
 
 INSERT INTO user(email, passwd, screen_name) VALUES ('admin@suffolk.edu', 'admin', 'Administrator');
+INSERT INTO invite_code(user_id, code, created_time) VALUES ('10000', 'ebfcf0c5-71ed-4735-a7af-7c2a4d8d5d8f', CURRENT_TIMESTAMP);
+INSERT INTO invite_code(user_id, code, created_time) VALUES ('10000', 'bcdda4dd-abc9-4b4e-9db0-c4fd63d9f519', CURRENT_TIMESTAMP);
+INSERT INTO invite_code(user_id, code, created_time) VALUES ('10000', '2e701bed-9601-46b7-be46-c8b63b29e7b6 ', CURRENT_TIMESTAMP);

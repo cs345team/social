@@ -38,7 +38,7 @@ public class Friends implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "time")
+    @Column(name = "created_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
     @JoinColumn(name = "friend_id", referencedColumnName = "id")
