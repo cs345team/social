@@ -16,13 +16,13 @@
         <h:form>
             <h:panelGrid columns="3">
                 <h:outputLabel for="username">Username</h:outputLabel>
-                <h:inputText id="username" value="#{userController.screenName}" required="true">
+                <h:inputText id="username" value="#{userController.screenName}" required="true" requiredMessage="Required">
                     <f:ajax event="blur" render="usernameMessage" />
                 </h:inputText>
                 <h:message id="usernameMessage" for="username" />
 
                 <h:outputLabel for="password">Password</h:outputLabel>
-                <h:inputSecret id="password" value="#{userController.passWd}" required="true" redisplay="true">
+                <h:inputSecret id="password" value="#{userController.passWd}" required="true" redisplay="true" requiredMessage="Required">
                     <f:ajax event="blur" render="passwordMessage" />
                 </h:inputSecret>
                 <h:message id="passwordMessage" for="password" />
