@@ -17,7 +17,7 @@ import server.EMF;
 
 /**
  *
- * @author Madfrog
+ * @author Xi
  */
 @FacesValidator("emailValidator")
 public class EmailValidator implements Validator {

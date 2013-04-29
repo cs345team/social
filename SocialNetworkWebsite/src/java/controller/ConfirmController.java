@@ -4,12 +4,10 @@
  */
 package controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import model.User;
@@ -24,32 +22,29 @@ import server.EMF;
 public class ConfirmController {
 
     private EntityManager em;
-    private String userName;
-    @ManagedProperty(value = "#{param.code}")
-    private String code;
+    private User user;
+    @ManagedProperty(value = "#{param.confirmationCode}")
+    private String confirmationCode;
+    private String message;
 
     /**
      * Creates a new instance of ConfirmController
      */
     public ConfirmController() {
         em = EMF.createEntityManager();
-        code = "";
+        confirmationCode = "";
     }
 
-    public Boolean confirm() {
-//        List<User> list = (ArrayList<User>)em.createNamedQuery("User.findByConfirmationCode").setParameter("confirmationCode", "123").getResultList();
-        //User user = new User();
-        //user.setScreenName("asd");
-        List<User> list = new ArrayList<User>();
-        if (list.size() > 0) {
-           // changeUserConfirmStatus(user);
-            User user = list.get(0);
-            userName = user.getScreenName();
-            return true;
+    public String confirm() {
+        List<User> list = (List<User>) em.createNamedQuery("User.findByConfirmationCode").setParameter("confirmationCode", confirmationCode).getResultList();
+
+        if (!list.isEmpty()) {
+            user = list.get(0);
+            changeUserConfirmStatus(user);
         } else {
-            return false;
+            message = "Activition failed.";
         }
-        //return false;
+        return message;
     }
 
     public void changeUserConfirmStatus(User user) {
@@ -59,23 +54,33 @@ public class ConfirmController {
             em.persist(user);
             user.setConfirmationStatus(1);
             tx.commit();
+            message = "Congratulations! Your account is activitied now. Welcome, " + user.getScreenName();
+        } else {
+            message = "This account has already been activitied before.";
         }
     }
 
-    public String getCode() {
-        return code;
+    public String getConfirmationCode() {
+        return confirmationCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-        confirm();
+    public void setConfirmationCode(String confirmationCode) {
+        this.confirmationCode = confirmationCode;
     }
 
-    public String getUserName() {
-        return userName;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

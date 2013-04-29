@@ -13,6 +13,7 @@ import model.InviteCode;
 import model.User;
 import server.EMF;
 import server.EmailSender;
+import server.UUIDGenerater;
 
 /**
  *
@@ -45,10 +46,13 @@ public class Register {
             EntityTransaction tx = em.getTransaction();
             tx.begin();
             em.persist(user);
+            String confirmationCode = UUIDGenerater.generateUniqueId();
+            user.setConfirmationCode(confirmationCode);
+            user.setConfirmationStatus(0);
             em.remove(code);
             tx.commit();
             registered = true;
-            EmailSender es = new EmailSender(user, inviteCode);
+            EmailSender es = new EmailSender(user, confirmationCode);
             String result = es.sendEmailToUser();
             System.out.println(result);
 
@@ -79,11 +83,6 @@ public class Register {
             FacesMessage message = new FacesMessage("Sorry!Invitation Code is not valid or already expired.");
             FacesContext.getCurrentInstance().addMessage(component.getClientId(), message);
         }
-
-//           //For test
-//            valid = true;
-//            FacesMessage message = new FacesMessage("Congrats!Invitation Code is valid!");
-//            FacesContext.getCurrentInstance().addMessage(component.getClientId(), message);
     }
 
     public User getUser() {

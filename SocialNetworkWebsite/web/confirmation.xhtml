@@ -7,15 +7,12 @@
     </h:head>
     <h:body>
         <h1>Confirmation</h1>
-        <h:form>
-            <h:outputText value="Confirmation Success. Welcome #{confirmController.userName}" 
-                          rendered="#{confirmController.confirm()}">
+        <h:panelGroup>
+            <h:outputText value="#{confirmController.confirm()}">
             </h:outputText>
-            <h:outputText value="Confirmation Failed." 
-                          rendered="#{!confirmController.confirm()}">
-            </h:outputText>
-            
-        </h:form>
+        </h:panelGroup>
+        <br/>
+        <h:link outcome="index.html">Back to front page</h:link>
         
     </h:body>
 </html>

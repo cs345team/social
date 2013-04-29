@@ -31,11 +31,11 @@ import javax.servlet.http.HttpServletRequest;
 public class EmailSender {
 
     private User user;
-    private String code;
+    private String confirmationCode;
 
-    public EmailSender(User user, String code) {
+    public EmailSender(User user, String confirmationCode) {
         this.user = user;
-        this.code = code;
+        this.confirmationCode = confirmationCode;
     }
 
     public String sendEmailToUser() {
@@ -46,11 +46,11 @@ public class EmailSender {
         final String from = "edu.suffolk.msonws@gmail.com";
         final String to = user.getEmail();
         String hostName;
-        
+
         FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         hostName = request.getHeader("host");
-        
+
         Properties props = new Properties();
         props.put("mail.smtp.auth", true);
         props.put("mail.smtp.ssl.enable", true);
@@ -70,9 +70,9 @@ public class EmailSender {
         session.setDebug(false);
         String htmlContent = "<html>Dear " + user.getScreenName()
                 + ",<br><br>Please click the following link to finish your registration:<br><br>"
-                + "<a href=\"http://" + hostName + 
-                "/SocialNetworkWebsite/confirmation.xhtml?code="
-                + code + "\">Click here to confirm</a><br><br>Best,<br>Buttbook </html>";
+                + "<a href=\"http://" + hostName
+                + "/SocialNetworkWebsite/confirmation.xhtml?confirmationCode="
+                + confirmationCode + "\">Click here to confirm</a><br><br>Best,<br>Buttbook </html>";
         MimeMessage message = new MimeMessage(session);
 
         try {
@@ -93,5 +93,13 @@ public class EmailSender {
             //throw new RuntimeException(e);
         }
         return result;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

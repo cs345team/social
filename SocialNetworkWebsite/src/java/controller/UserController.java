@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -12,7 +11,7 @@ import server.EMF;
 
 /**
  *
- * @author mcsadmin
+ * @author Xi
  */
 @ManagedBean
 @SessionScoped
