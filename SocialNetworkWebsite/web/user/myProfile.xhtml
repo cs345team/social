@@ -1,13 +1,147 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Edit Profile</title>
     </h:head>
     <h:body>
         <h1>Hello #{userController.user.screenName}</h1>
-        
+
+        <h:form id="profile">
+            <p:panelGrid columns="3">                
+                <h:outputLabel>ID: </h:outputLabel>
+                <h:outputLabel value="#{userController.user.id}"/>
+                <h:panelGroup/>
+
+                <h:outputLabel>Email: </h:outputLabel>
+                <h:outputLabel value="#{userController.user.email}"/>
+                <h:panelGroup/>
+
+                <h:outputLabel>Screen Name: </h:outputLabel>
+                <h:outputLabel value="#{userController.user.screenName}"/>
+                <h:panelGroup/>
+
+                <h:outputLabel>Profile Image: </h:outputLabel>
+                <p:graphicImage id="image"/>
+                <p:commandButton id="imageEditor" value="Edit" icon="ui-icon-edit"/>
+
+                <h:outputLabel>Password: </h:outputLabel>
+                <h:outputLabel>********</h:outputLabel>
+                <p:commandButton id="passwordEditor" value="Edit" icon="ui-icon-edit"/>
+
+                <h:outputLabel>Real Name: </h:outputLabel>
+                <h:outputLabel value="#{userController.user.realName}"/>
+                <p:commandButton id="realNameEditor" value="Edit" icon="ui-icon-edit"/>
+
+                <h:outputLabel>Gender: </h:outputLabel>
+                <h:outputLabel value="#{userController.user.gender}"/>
+                <p:commandButton id="genderEditor" value="Edit" icon="ui-icon-edit"/>
+
+                <h:outputLabel>Date of Birth: </h:outputLabel>
+                <h:outputLabel value="#{userController.user.birthday}"/>
+                <p:commandButton id="birthdayEditor" value="Edit" icon="ui-icon-edit" onclick="birthdayOP.show();"/>
+
+                <h:outputLabel>Interests: </h:outputLabel>
+                <h:outputLabel value="#{userController.user.interests}"/>
+                <p:commandButton id="interestEditor" value="Edit" onclick="interestOP.show();" icon="ui-icon-edit"/>
+
+            </p:panelGrid>
+
+            <p:overlayPanel id="passwordEditorPanel" for="passwordEditor" widgetVar="passwordOP">
+                <h:form>
+                    <p:panelGrid columns="2">
+                        <h:outputLabel for="oldPassword">Old password: </h:outputLabel>
+                        <h:inputSecret id="oldPassword"/>
+
+                        <h:outputLabel for="newPassword">New password: </h:outputLabel>
+                        <h:inputSecret id="newPassword"/>
+
+                        <h:outputLabel for="confirmPassword">Confirm: </h:outputLabel>
+                        <h:inputSecret id="confirmPassword"/>
+
+                    </p:panelGrid>
+
+                    <p:commandButton value="Submit"/>
+                    <p:commandButton id="passwordCancel" value="Cancel" onclick="passwordOP.hide();"/>
+                </h:form>
+            </p:overlayPanel>
+
+            <p:overlayPanel id="realNameEditorPanel" for="realNameEditor" widgetVar="realNameOP">
+                <h:form>
+                    <p:panelGrid columns="2">
+                        <h:outputLabel for="realName">Your real Name: </h:outputLabel>
+                        <h:inputText id="realName"/>
+                    </p:panelGrid>
+
+                    <p:commandButton value="Submit"/>
+                    <p:commandButton value="Cancel" onclick="realNameOP.hide();"/>
+                </h:form>
+            </p:overlayPanel>
+
+            <p:overlayPanel id="genderEditorPanel" for="genderEditor" widgetVar="genderOP">
+                <h:form>
+                    <p:panelGrid columns="2">
+                        <h:outputLabel for="gender">Your gender: </h:outputLabel>
+                        <p:selectOneRadio id="gender">
+                            <f:selectItem itemLabel="Male" itemValue="0"/>
+                            <f:selectItem itemLabel="Female" itemValue="1"/>
+                        </p:selectOneRadio>
+                    </p:panelGrid>
+
+                    <p:commandButton value="Submit"/>
+                    <p:commandButton value="Cancel" onclick="genderOP.hide();"/>
+                </h:form>
+            </p:overlayPanel>
+
+            <p:dialog id="interestEditorPanel" widgetVar="interestOP">
+                <h:form>
+                    <p:panelGrid columns="2">
+                        <h:outputLabel for="interets">Choose your interests: </h:outputLabel>
+                        <p:selectManyCheckbox id="interests" layout="pageDirection">
+                            <f:selectItem itemLabel="Music" itemValue="Music"/>
+                            <f:selectItem itemLabel="History" itemValue="History"/>
+                            <f:selectItem itemLabel="Basketball" itemValue="Basketball"/>
+                            <f:selectItem itemLabel="Baseball" itemValue="Baseball"/>
+                            <f:selectItem itemLabel="Swimming" itemValue="Swimming"/>
+                            <f:selectItem itemLabel="Photography" itemValue="Photography"/>
+                            <f:selectItem itemLabel="Reading" itemValue="Reading"/>
+                            <f:selectItem itemLabel="Camping" itemValue="Camping"/>
+                            <f:selectItem itemLabel="Traveling" itemValue="Traveling"/>
+                        </p:selectManyCheckbox>
+
+                    </p:panelGrid>
+
+                    <p:commandButton value="Submit"/>
+                    <p:commandButton value="Cancel" onclick="interestOP.hide();"/>
+                </h:form>
+            </p:dialog>
+
+            <p:overlayPanel id="imageEditorPanel" for="imageEditor" widgetVar="imageOP">
+                <h:form enctype="multipart/form-data">  
+                    <p:fileUpload   
+                        mode="advanced"  
+                        update=":profile:image"  
+                        auto="false"  
+                        sizeLimit="1000000"   
+                        allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>  
+                </h:form>
+            </p:overlayPanel>
+
+            <p:dialog id="birthdayEditorPanel" widgetVar="birthdayOP">
+                <h:form>
+                    <p:panelGrid columns="2">
+                        <h:outputLabel for="">Your date of birth: </h:outputLabel>
+                        <p:calendar id="birthday"/>
+                    </p:panelGrid>
+
+                    <p:commandButton value="Submit"/>
+                    <p:commandButton value="Cancel" onclick="birthdayOP.hide();"/>
+                </h:form>
+            </p:dialog>
+        </h:form>
     </h:body>
 </html>
 

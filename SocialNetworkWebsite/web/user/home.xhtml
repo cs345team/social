@@ -22,23 +22,17 @@
                         <p:menuitem value="Log out"/>
                         <p:menuitem value="Delete"/>
                     </p:menuButton>
-                    <!--                <h:form>
-                                        <p:menuButton value="Options">
-                                            <p:menuitem value="Log out"/>
-                                            <p:menuitem value="Delete Account"/>
-                                        </p:menuButton>
-                                    </h:form>-->
+
                 </h:form>
             </p:layoutUnit>
 
             <p:layoutUnit position="west" header="#{userController.user.screenName}" size="250">
                 <p:graphicImage/>
-                <h:link outcome="myProfile.xhtml">View Profile</h:link>
-
+                <h:link outcome="myProfile.xhtml">Edit Profile</h:link>
             </p:layoutUnit>
 
-            <p:layoutUnit position="center">
-
+            <p:layoutUnit position="center" header="Wall">
+                
 
             </p:layoutUnit>
 
