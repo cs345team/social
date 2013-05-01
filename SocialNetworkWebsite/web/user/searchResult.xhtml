@@ -9,11 +9,6 @@
     </h:head>
     <h:body>
         <h1>Result List:</h1>
-
-        <h:outputLabel value="#{resultController.keyword}"/>
-        <h:outputLabel value="#{resultController.user.screenName}"/>
-        <h:outputLabel value="#{imageController.id}"/>
-
         <h:form>  
             <p:dataTable var="person" value="#{resultController.users}" > 
                 <p:column>
@@ -28,14 +23,6 @@
                 <p:column headerText="Gender">  
                     <h:outputText value="#{person.gender}" />  
                 </p:column>  
-
-                <!--                <p:column headerText="Manufacturer">  
-                                    <h:outputText value="#{car.manufacturer}" />  
-                                </p:column>  
-                
-                                <p:column headerText="Color">  
-                                    <h:outputText value="#{car.color}" />  
-                                </p:column>  -->
             </p:dataTable>  
         </h:form> 
     </h:body>
