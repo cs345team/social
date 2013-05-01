@@ -24,9 +24,9 @@
                 <h:panelGroup/>
 
                 <h:outputLabel>Profile Image: </h:outputLabel>
-                <p:graphicImage id="image"/>
+                <p:graphicImage id="image" value="#{userController.profileImage}" height="200" width="200"/>
                 <p:commandButton id="imageEditor" value="Edit" icon="ui-icon-edit"
-                                 type="button" onclick="imageOP.show()"/>
+                                 type="button" onclick="imageOP.show();"/>
 
                 <h:outputLabel>Password: </h:outputLabel>
                 <h:outputLabel>********</h:outputLabel>
@@ -147,14 +147,15 @@
             </h:form>
         </p:dialog>
 
-        <p:dialog id="imageEditorPanel" widgetVar="imageOP">
+        <p:dialog id="imageEditorPanel" widgetVar="imageOP" header="Recommended Size: 200 * 200 px">
             <h:form enctype="multipart/form-data">  
-                <p:fileUpload   
+                <p:fileUpload fileUploadListener="#{userController.addProfile}"
                     mode="advanced"  
                     update=":messages :profile:image @form"  
                     auto="false"  
                     sizeLimit="1000000"   
-                    allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>  
+                    allowTypes="/(\.|\/)(jpe?g|png)$/"
+                    oncomplete="imageOP.hide();"/>  
             </h:form>
         </p:dialog>
 

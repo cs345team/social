@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -8,7 +9,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import model.Image;
 import model.User;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import server.EMF;
 
 /**
@@ -30,6 +35,8 @@ public class UserController {
     private UIComponent component;
     private String gender;
     private List<String> interestOptions;
+    private StreamedContent profileImage;
+
 
     /**
      * Creates a new instance of UserController
@@ -130,6 +137,23 @@ public class UserController {
             return null;
         }
     }
+    
+    public void addProfile(FileUploadEvent event) {
+        byte[] imgBytes = event.getFile().getContents();
+        Image img = new Image();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        em.persist(img);
+        img.setImg(imgBytes);
+        tx.commit();
+        tx = em.getTransaction();
+        tx.begin();
+        em.persist(user);
+        user.setProfileImg(img);
+        tx.commit();
+        FacesMessage msg = new FacesMessage("Your profile image is updated!");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 
     public User getUser() {
         return user;
@@ -193,5 +217,24 @@ public class UserController {
 
     public void setInterestOptions(List<String> interestOptions) {
         this.interestOptions = interestOptions;
+    }
+    
+    
+    public StreamedContent getProfileImage() {
+        byte[] imgBytes = user.getProfileImg().getImg();
+        if(imgBytes != null) {
+            if(imgBytes.length > 0) {
+                return new DefaultStreamedContent(new ByteArrayInputStream(imgBytes), "image/png");
+            }
+            else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public void setProfileImage(StreamedContent profileImage) {
+        this.profileImage = profileImage;
     }
 }
