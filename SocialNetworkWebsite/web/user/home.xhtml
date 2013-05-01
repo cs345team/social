@@ -27,7 +27,8 @@
             </p:layoutUnit>
 
             <p:layoutUnit position="west" header="#{userController.user.screenName}" size="250">
-                <p:graphicImage/>
+                <p:graphicImage value="#{userController.profileImage}"  height="200" width="200"/>
+                <br/>
                 <h:link outcome="myProfile.xhtml">Edit Profile</h:link>
             </p:layoutUnit>
 
