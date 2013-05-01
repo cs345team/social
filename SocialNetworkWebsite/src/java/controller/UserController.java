@@ -37,7 +37,6 @@ public class UserController {
     private List<String> interestOptions;
     private StreamedContent profileImage;
 
-
     /**
      * Creates a new instance of UserController
      */
@@ -137,7 +136,7 @@ public class UserController {
             return null;
         }
     }
-    
+
     public void addProfile(FileUploadEvent event) {
         byte[] imgBytes = event.getFile().getContents();
         Image img = new Image();
@@ -218,20 +217,24 @@ public class UserController {
     public void setInterestOptions(List<String> interestOptions) {
         this.interestOptions = interestOptions;
     }
-    
-    
+
     public StreamedContent getProfileImage() {
-        byte[] imgBytes = user.getProfileImg().getImg();
-        if(imgBytes != null) {
-            if(imgBytes.length > 0) {
-                return new DefaultStreamedContent(new ByteArrayInputStream(imgBytes), "image/png");
-            }
-            else {
+        Image img = user.getProfileImg();
+        if (img != null) {
+            byte[] imgBytes = user.getProfileImg().getImg();
+            if (imgBytes != null) {
+                if (imgBytes.length > 0) {
+                    return new DefaultStreamedContent(new ByteArrayInputStream(imgBytes), "image/png");
+                } else {
+                    return null;
+                }
+            } else {
                 return null;
             }
         } else {
             return null;
         }
+
     }
 
     public void setProfileImage(StreamedContent profileImage) {
