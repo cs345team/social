@@ -120,11 +120,10 @@ public class UserController {
     }
 
     public void changeBirthday() {
-//        System.out.println(user.getBirthday());
-//        EntityTransaction tx = em.getTransaction();
-//        tx.begin();
-//        em.persist(user);
-//        tx.commit();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        em.persist(user);
+        tx.commit();
         FacesMessage message = new FacesMessage("Date of birth changed successfully.");
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
