@@ -16,7 +16,7 @@ CREATE TABLE `user` (
 	`passwd` varchar(20) NOT NULL,
 	`screen_name`varchar(20) NOT NULL,
 	`real_name` text,
-	`gender` tinyint(1),
+	`gender` varchar(6),
 	`birthday` timestamp,
 	`interests` text,
 	`profile_img_id` int(11),
@@ -61,7 +61,7 @@ CREATE TABLE `invite_code` (
 	FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) AUTO_INCREMENT = 1;
 
-INSERT INTO user(email, passwd, screen_name) VALUES ('admin@suffolk.edu', 'admin', 'Administrator');
+INSERT INTO user(email, passwd, screen_name, confirmation_status) VALUES ('admin@suffolk.edu', 'admin', 'Administrator', 1);
 INSERT INTO invite_code(user_id, code) VALUES ('10000', 'ebfcf0c5-71ed-4735-a7af-7c2a4d8d5d8f');
 INSERT INTO invite_code(user_id, code) VALUES ('10000', 'bcdda4dd-abc9-4b4e-9db0-c4fd63d9f519');
 INSERT INTO invite_code(user_id, code) VALUES ('10000', '2e701bed-9601-46b7-be46-c8b63b29e7b6');

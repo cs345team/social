@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,6 +28,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -65,7 +68,7 @@ public class User implements Serializable {
     @Column(name = "real_name")
     private String realName;
     @Column(name = "gender")
-    private Integer gender;
+    private String gender;
     @Column(name = "birthday")
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthday;
@@ -147,11 +150,11 @@ public class User implements Serializable {
         this.realName = realName;
     }
 
-    public Integer getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Integer gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

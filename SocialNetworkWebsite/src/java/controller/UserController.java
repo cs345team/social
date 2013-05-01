@@ -33,7 +33,6 @@ public class UserController {
     private String newPassword;
     private String confPassword;
     private UIComponent component;
-    private String gender;
     private List<String> interestOptions;
     private StreamedContent profileImage;
 
@@ -128,14 +127,13 @@ public class UserController {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public String getGender() {
-        if (user.getGender() != null) {
-            return user.getGender() == 0 ? "Male" : "Female";
-        } else {
-            return null;
-        }
-    }
-
+//    public String getGender() {
+//        if (user.getGender() != null) {
+//            return user.getGender() == 0 ? "Male" : "Female";
+//        } else {
+//            return null;
+//        }
+//    }
     public void addProfile(FileUploadEvent event) {
         byte[] imgBytes = event.getFile().getContents();
         Image img = new Image();
@@ -218,21 +216,17 @@ public class UserController {
     }
 
     public StreamedContent getProfileImage() {
+        StreamedContent imgStream = null;
         Image img = user.getProfileImg();
         if (img != null) {
             byte[] imgBytes = user.getProfileImg().getImg();
             if (imgBytes != null) {
                 if (imgBytes.length > 0) {
-                    return new DefaultStreamedContent(new ByteArrayInputStream(imgBytes), "image/png");
-                } else {
-                    return null;
-                }
-            } else {
-                return null;
-            }
-        } else {
-            return null;
+                    imgStream = new DefaultStreamedContent(new ByteArrayInputStream(imgBytes), "image/png");
+                } 
+            } 
         }
+        return imgStream;
 
     }
 

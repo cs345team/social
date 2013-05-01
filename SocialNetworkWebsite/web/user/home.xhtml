@@ -13,10 +13,10 @@
                 <h:form>
                     <h:link outcome="home.xhtml">Home</h:link>
                     &nbsp;
-                    <p:inputText id="search"/>
+                    <h:inputText id="search" value="#{searchController.keyword}"/>
                     <p:watermark for="search" value="Search for people" />
 
-                    <h:commandButton id="searchSubmit" value="Search"/>
+                    <h:commandButton id="searchSubmit" value="Search" action="#{searchController.doSearch()}"/>
                     &nbsp;
                     <p:menuButton value="Options">
                         <p:menuitem value="Log out" action="#{userController.logout()}"/>

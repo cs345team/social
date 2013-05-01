@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Search Results</title>
+    </h:head>
+    <h:body>
+        <h1>Result List:</h1>
+
+        <h:outputLabel value="#{resultController.keyword}"/>
+        <h:outputLabel value="#{resultController.user.screenName}"/>
+        <h:outputLabel value="#{imageController.id}"/>
+
+        <h:form>  
+            <p:dataTable var="person" value="#{resultController.users}" > 
+                <p:column>
+                    <p:graphicImage height="200" width="200"/>
+                    <f:param name="id" value="#{person.id}"/>
+                </p:column>
+
+                <p:column headerText="Screen Name">
+                    <h:outputText value="#{person.screenName}" />  
+                </p:column>  
+
+                <p:column headerText="Gender">  
+                    <h:outputText value="#{person.gender}" />  
+                </p:column>  
+
+                <!--                <p:column headerText="Manufacturer">  
+                                    <h:outputText value="#{car.manufacturer}" />  
+                                </p:column>  
+                
+                                <p:column headerText="Color">  
+                                    <h:outputText value="#{car.color}" />  
+                                </p:column>  -->
+            </p:dataTable>  
+        </h:form> 
+    </h:body>
+</html>
+

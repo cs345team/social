@@ -42,7 +42,7 @@
                                  type="button" onclick="realNameOP.show();"/>
 
                 <h:outputLabel>Gender: </h:outputLabel>
-                <h:outputLabel id="gender" value="#{userController.gender}"/>
+                <h:outputLabel id="gender" value="#{userController.user.gender}"/>
                 <p:commandButton id="genderEditor" value="Edit" icon="ui-icon-edit"
                                  type="button" onclick="genderOP.show();"/>
 
@@ -115,8 +115,8 @@
                 <p:panelGrid columns="2">
                     <h:outputLabel for="newGender">Your gender: </h:outputLabel>
                     <p:selectOneRadio id="newGender" value="#{userController.user.gender}">
-                        <f:selectItem itemLabel="Male" itemValue="0"/>
-                        <f:selectItem itemLabel="Female" itemValue="1"/>
+                        <f:selectItem itemLabel="Male" itemValue="Male"/>
+                        <f:selectItem itemLabel="Female" itemValue="Female"/>
                     </p:selectOneRadio>
                 </p:panelGrid>
 
