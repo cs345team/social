@@ -4,8 +4,10 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import model.User;
 import server.EMF;
 
@@ -22,6 +24,12 @@ public class UserController {
     private String passWd;
     private EntityManager em;
     private boolean isLoggedIn;
+    private String oldPassword;
+    private String newPassword;
+    private String confPassword;
+    private UIComponent component;
+    private String gender;
+    private List<String> interestOptions;
 
     /**
      * Creates a new instance of UserController
@@ -35,6 +43,9 @@ public class UserController {
 
         if (users.isEmpty()) {
             FacesMessage message = new FacesMessage("User name does not exist!");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        } else if ((user = users.get(0)).getConfirmationStatus() == 0) {
+            FacesMessage message = new FacesMessage("This account has not been activitied yet.");
             FacesContext.getCurrentInstance().addMessage(null, message);
         } else if (!(user = users.get(0)).getPasswd().equals(passWd)) {
             FacesMessage message = new FacesMessage("User name and password dose not match!");
@@ -52,6 +63,72 @@ public class UserController {
         isLoggedIn = false;
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/index.xhtml?faces-redirect=true";
+    }
+
+    public void changePassword() {
+        if (!user.getPasswd().equals(oldPassword)) {
+            FacesMessage message = new FacesMessage("The old password is not correct.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        } else {
+            EntityTransaction tx = em.getTransaction();
+            tx.begin();
+            em.persist(user);
+            user.setPasswd(newPassword);
+            tx.commit();
+            FacesMessage message = new FacesMessage("Password changed successfully.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+    }
+
+    public void changeRealName() {
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        em.persist(user);
+        tx.commit();
+        FacesMessage message = new FacesMessage("Real name changed successfully.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void changeGender() {
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        em.persist(user);
+        tx.commit();
+        FacesMessage message = new FacesMessage("Gender changed successfully.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void changeInterests() {
+        String interests = "";
+        for (String s : interestOptions) {
+            interests += s + "/";
+        }
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        em.persist(user);
+        user.setInterests(interests);
+        tx.commit();
+        System.out.println(user.getInterests());
+        FacesMessage message = new FacesMessage("Interests changed successfully.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void changeBirthday() {
+//        System.out.println(user.getBirthday());
+//        EntityTransaction tx = em.getTransaction();
+//        tx.begin();
+//        em.persist(user);
+//        tx.commit();
+        FacesMessage message = new FacesMessage("Date of birth changed successfully.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public String getGender() {
+        if (user.getGender() != null) {
+            return user.getGender() == 0 ? "Male" : "Female";
+        } else {
+            return null;
+        }
     }
 
     public User getUser() {
@@ -76,5 +153,45 @@ public class UserController {
 
     public boolean isIsLoggedIn() {
         return isLoggedIn;
+    }
+
+    public String getConfPassword() {
+        return confPassword;
+    }
+
+    public void setConfPassword(String confPassword) {
+        this.confPassword = confPassword;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public UIComponent getComponent() {
+        return component;
+    }
+
+    public void setComponent(UIComponent component) {
+        this.component = component;
+    }
+
+    public List<String> getInterestOptions() {
+        return interestOptions;
+    }
+
+    public void setInterestOptions(List<String> interestOptions) {
+        this.interestOptions = interestOptions;
     }
 }

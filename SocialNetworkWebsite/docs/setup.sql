@@ -17,7 +17,7 @@ CREATE TABLE `user` (
 	`screen_name`varchar(20) NOT NULL,
 	`real_name` text,
 	`gender` tinyint(1),
-	`birthday` varchar(16),
+	`birthday` timestamp,
 	`interests` text,
 	`profile_img_id` int(11),
 	`config` text,

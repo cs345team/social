@@ -41,9 +41,11 @@ public class PasswordValidator implements Validator {
         }
 
         String password = value.toString();
-
+        String confirmPassword = null;
         UIInput uiInputConfirmPassword = (UIInput) component.getAttributes().get("confirmPassword");
-        String confirmPassword = uiInputConfirmPassword.getSubmittedValue().toString();
+        if (uiInputConfirmPassword != null) {
+            confirmPassword = (String) uiInputConfirmPassword.getSubmittedValue();
+        }
 
         // Let required="true" do its job.
         if (password == null || password.isEmpty() || confirmPassword == null || confirmPassword.isEmpty()) {
