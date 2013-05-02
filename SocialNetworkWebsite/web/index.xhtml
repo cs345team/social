@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Social Network Website</title>
     </h:head>
@@ -34,6 +35,20 @@
                 <h:messages globalOnly="true" layout="table"/>
             </h:panelGrid>
         </h:form>
+
+        <br/>
+        <br/>
+        <h:form>
+            <h:inputText id="search" value="#{searchController.keyword}" required="true" 
+                         requiredMessage="Please input search keyword." size="34">
+                <f:ajax event="blur" render="searchMessage"/>
+            </h:inputText>
+            <p:watermark for="search" value="Search by Screenname or Interests" />
+
+            <h:commandButton id="searchSubmit" value="Search" action="#{searchController.doGuestSearch()}"/>
+            <h:message id="searchMessage" for="search"/>
+        </h:form>
+        
     </h:body>
 </html>
 

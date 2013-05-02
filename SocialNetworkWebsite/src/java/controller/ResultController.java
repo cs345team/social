@@ -38,6 +38,10 @@ public class ResultController {
         em = EMF.createEntityManager();
         keyword = "";
     }
+    
+    public String checkKeyword() {
+        
+    }
 
     public String getKeyword() {
         return keyword;
