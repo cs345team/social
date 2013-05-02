@@ -40,7 +40,7 @@ public class ResultController {
     }
     
     public String checkKeyword() {
-        
+        return null;
     }
 
     public String getKeyword() {
