@@ -127,13 +127,6 @@ public class UserController {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-//    public String getGender() {
-//        if (user.getGender() != null) {
-//            return user.getGender() == 0 ? "Male" : "Female";
-//        } else {
-//            return null;
-//        }
-//    }
     public void addProfile(FileUploadEvent event) {
         byte[] imgBytes = event.getFile().getContents();
         Image img = new Image();

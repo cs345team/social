@@ -30,7 +30,6 @@ public class ResultController {
     private User user;
     private EntityManager em;
     private List<User> users;
-    private int i = 0;
 
     /**
      * Creates a new instance of resultController
@@ -63,23 +62,5 @@ public class ResultController {
 
     public void setUsers(List<User> users) {
         this.users = users;
-    }
-
-
-    public StreamedContent getProfileImage() {
-        User u = users.get(i);
-        Image img = u.getProfileImg();
-        DefaultStreamedContent imgStream = new DefaultStreamedContent();
-        if (img != null) {
-            byte[] imgBytes = img.getImg();
-            if (imgBytes != null) {
-                if (imgBytes.length > 0) {
-                    imgStream = new DefaultStreamedContent(new ByteArrayInputStream(imgBytes), "image/png");
-                }
-            }
-        }
-        i++;
-        return imgStream;
-
     }
 }
