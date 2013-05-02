@@ -66,7 +66,11 @@ public class Wall implements Serializable {
         this.id = id;
         this.time = time;
     }
-
+    public Wall(Integer id,Date time, String Text){
+        this.id = id;
+        this.time = time;
+        this.text=Text;
+    }
     public Integer getId() {
         return id;
     }
