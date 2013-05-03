@@ -28,8 +28,14 @@
 
                 <h:outputLabel>Profile Image: </h:outputLabel>
                 <p:graphicImage id="image" value="#{userController.profileImage}" height="200" width="200"/>
-                <p:commandButton id="imageEditor" value="Edit" icon="ui-icon-edit"
+                <h:panelGroup>
+                                    <p:commandButton id="imageEditor" value="Edit" icon="ui-icon-edit"
                                  type="button" onclick="imageOP.show();"/>
+                <p:commandButton id="imageDeleter" value="Delete" icon ="ui-icon-edit"
+                                 action="#{userController.clearProfile}" 
+                                 update=":messages @form" rendered="#{userController.hasProfile()}"/>
+                </h:panelGroup>
+
 
                 <h:outputLabel>Password: </h:outputLabel>
                 <h:outputLabel>********</h:outputLabel>

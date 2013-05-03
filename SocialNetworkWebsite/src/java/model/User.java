@@ -13,6 +13,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -86,7 +87,7 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<InviteCode> inviteCodes = new ArrayList<InviteCode>();
     @JoinColumn(name = "profile_img_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Image profileImg;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "poster")
     private Collection<Wall> wallCollection;

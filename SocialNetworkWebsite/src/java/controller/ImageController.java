@@ -7,6 +7,7 @@ package controller;
 import java.io.ByteArrayInputStream;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.persistence.EntityManager;
@@ -22,7 +23,7 @@ import server.EMF;
  * @author Madfrog
  */
 @ManagedBean
-@ApplicationScoped
+@RequestScoped
 public class ImageController {
 
     private EntityManager em;
