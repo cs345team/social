@@ -12,7 +12,7 @@
         <h:link outcome="home.xhtml">Home</h:link>
         <br/><br/>
 
-        <h:form id="profile">
+        <h:form id="profile" style="font-size: small">
             <p:panelGrid columns="3">                
                 <h:outputLabel>ID: </h:outputLabel>
                 <h:outputLabel value="#{userController.user.id}"/>
@@ -71,7 +71,7 @@
         <p:growl id="messages" showDetail="true" life="2000"/>
 
 
-        <p:dialog id="passwordEditorPanel" widgetVar="passwordOP">
+        <p:dialog id="passwordEditorPanel" widgetVar="passwordOP" style="font-size: small">
             <h:form>
                 <p:panelGrid columns="2">
                     <h:outputLabel for="oldPassword">Old password: </h:outputLabel>
@@ -102,7 +102,7 @@
             </h:form>
         </p:dialog>
 
-        <p:dialog id="realNameEditorPanel" widgetVar="realNameOP">
+        <p:dialog id="realNameEditorPanel" widgetVar="realNameOP" style="font-size: small">
             <h:form>
                 <p:panelGrid columns="2">
                     <h:outputLabel for="newRealName">Your real name: </h:outputLabel>
@@ -116,7 +116,7 @@
             </h:form>
         </p:dialog>
 
-        <p:dialog id="genderEditorPanel" widgetVar="genderOP">
+        <p:dialog id="genderEditorPanel" widgetVar="genderOP" style="font-size: small">
             <h:form>
                 <p:panelGrid columns="2">
                     <h:outputLabel for="newGender">Your gender: </h:outputLabel>
@@ -132,7 +132,7 @@
             </h:form>
         </p:dialog>
 
-        <p:dialog id="interestEditorPanel" widgetVar="interestOP">
+        <p:dialog id="interestEditorPanel" widgetVar="interestOP" style="font-size: small">
             <h:form>
                 <p:panelGrid columns="2">
                     <h:outputLabel for="newInterests">Choose your interests: </h:outputLabel>
@@ -157,7 +157,7 @@
             </h:form>
         </p:dialog>
 
-        <p:dialog id="imageEditorPanel" widgetVar="imageOP" header="Recommended Size: 200 * 200 px">
+        <p:dialog id="imageEditorPanel" widgetVar="imageOP" header="Recommended Size: 200 * 200 px" style="font-size: small">
             <h:form enctype="multipart/form-data">  
                 <p:fileUpload fileUploadListener="#{userController.addProfile}"
                               mode="advanced"  
@@ -169,11 +169,11 @@
             </h:form>
         </p:dialog>
 
-        <p:dialog id="birthdayEditorPanel" widgetVar="birthdayOP">
+        <p:dialog id="birthdayEditorPanel" widgetVar="birthdayOP" style="font-size: small">
             <h:form>
                 <p:panelGrid columns="2">
                     <h:outputLabel for="newBirthday">Your date of birth: </h:outputLabel>
-                    <p:calendar id="newBirthday" value="#{userController.user.birthday}"/>
+                    <p:calendar id="newBirthday" value="#{userController.user.birthday}" />
                 </p:panelGrid>
 
                 <p:commandButton value="Submit" action="#{userController.changeBirthday}"
