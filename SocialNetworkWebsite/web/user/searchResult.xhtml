@@ -11,7 +11,7 @@
         <h1>Result List:</h1>
         <h:form id="form">
 
-            <p:dataTable var="person" value="#{resultController.users}" > 
+            <p:dataTable var="person" value="#{resultController.users}" style="font-size: small"> 
                 <p:column>
                     <p:graphicImage value="#{imageController.profileImage}" height="100" width="100">
                         <f:param name="id" value="#{person.id}"/>

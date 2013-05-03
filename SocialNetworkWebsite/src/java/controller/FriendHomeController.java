@@ -22,60 +22,42 @@ import server.LazyWallDataModel;
  */
 @ManagedBean
 @RequestScoped
-public class WallController {
-
-    @ManagedProperty(value = "#{userController.user}")
-    private User user;
+public class FriendHomeController {
+    
     @ManagedProperty(value = "#{userController.target}")
-    private User target;
+    private User friend;
     private EntityManager em;
     private LazyDataModel<Wall> lazyModel;
     private List<Wall> walls;
-
     /**
-     * Creates a new instance of WallController
+     * Creates a new instance of FriendHomeController
      */
-    public WallController() {
-        user = new User();
-        target = new User();
+    public FriendHomeController() {
+        friend = new User();
         em = EMF.createEntityManager();
         lazyModel = new LazyWallDataModel(walls);
     }
     
-    public User getUser() {
-        return user;
+    public User getFriend() {
+        return friend;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public User getTarget() {
-        return target;
-    }
-
-    public void setTarget(User target) {
-        this.target = target;
+    public void setFriend(User user) {
+        this.friend = user;
     }
 
     public List<Wall> getWalls() {
         walls = this.retrieveWall();
         return walls;
     }
-    
-    public List<Wall> getOtherWalls() {
-        walls = (List<Wall>) em.createNamedQuery("Wall.findByUser").setParameter("user", target).getResultList();
-        Collections.reverse(walls);
-        return walls;
-    }
-    
+
     public void setWalls(List<Wall> walls) {
         this.walls = walls;
     }
     
     private List<Wall> retrieveWall()
     {
-        List<Wall> wallList = (List<Wall>) em.createNamedQuery("Wall.findByUser").setParameter("user", user).getResultList();
+        List<Wall> wallList = (List<Wall>) em.createNamedQuery("Wall.findByUser").setParameter("user", friend).getResultList();
         Collections.reverse(wallList);
         return wallList;
     }

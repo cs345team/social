@@ -4,25 +4,18 @@
  */
 package controller;
 
-import java.io.ByteArrayInputStream;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseId;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import model.Image;
 import model.User;
 import model.Wall;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 import server.EMF;
 
 /**
@@ -35,6 +28,8 @@ public class FeedController {
 
     @ManagedProperty(value = "#{userController.user}")
     private User user;
+    @ManagedProperty(value = "#{userController.target}")
+    private User target;
     private EntityManager em;
     private Wall newFeed;
 
@@ -43,6 +38,7 @@ public class FeedController {
      */
     public FeedController() {
         user = new User();
+        target = new User();
         em = EMF.createEntityManager();
         newFeed = new Wall();
     }
@@ -71,6 +67,31 @@ public class FeedController {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
+    
+     public void postToOthers() {
+        if ((newFeed.getText().isEmpty()) && !newFeed.hasImage()) {
+            FacesMessage msg = new FacesMessage("Please input something!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } else {
+            EntityTransaction tx = em.getTransaction();
+            if(newFeed.hasImage()) {
+                Image img = newFeed.getImage();
+                tx.begin();
+                em.persist(img);
+                tx.commit();
+            }
+            tx = em.getTransaction();
+            tx.begin();
+            em.persist(newFeed);
+            newFeed.setPoster(user);
+            newFeed.setUser(target);
+            newFeed.setTime(new Date());
+            tx.commit();
+            newFeed = new Wall();
+            FacesMessage msg = new FacesMessage("Posted!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
 
     public void addImage(FileUploadEvent event) {
         byte[] imgBytes = event.getFile().getContents();
@@ -89,6 +110,15 @@ public class FeedController {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public User getTarget() {
+        return target;
+    }
+
+    public void setTarget(User target) {
+        this.target = target;
+    }
+    
 
     public Wall getNewFeed() {
         return newFeed;

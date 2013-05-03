@@ -149,6 +149,23 @@ public class UserController {
     }
 
     public void addFriend() {
+        if (friend.equals(user)) {
+            FacesMessage msg = new FacesMessage("You cannot add yourself as a friend.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return;
+        } else {
+            List<Friends> list2 = (List<Friends>) em.createNamedQuery("Friends.findByUser").setParameter("user", user).getResultList();
+            if (!list2.isEmpty()) {
+                for (Friends f : list2) {
+                    if (f.getFriend().equals(friend)) {
+                        FacesMessage msg = new FacesMessage("You already have been friends.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                        return;
+                    }
+                }
+            }
+        }
+        
         List<Requests> list = (List<Requests>) em.createNamedQuery("Requests.findByRequestee").setParameter("requestee", friend).getResultList();
         if (list.isEmpty()) {
             EntityTransaction tx = em.getTransaction();
@@ -165,6 +182,7 @@ public class UserController {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
+
 
     public void agree() {
         List<Requests> list = (List<Requests>) em.createNamedQuery("Requests.findByRequestee").setParameter("requestee", user).getResultList();
