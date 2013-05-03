@@ -48,32 +48,35 @@ public class FeedController {
     }
 
     public void post() {
-        if ((newFeed.getText().isEmpty()) && newFeed.getImage() == null) {
+        if ((newFeed.getText().isEmpty()) && !newFeed.hasImage()) {
             FacesMessage msg = new FacesMessage("Please input something!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else {
             EntityTransaction tx = em.getTransaction();
+            if(newFeed.hasImage()) {
+                Image img = newFeed.getImage();
+                tx.begin();
+                em.persist(img);
+                tx.commit();
+            }
+            tx = em.getTransaction();
             tx.begin();
             em.persist(newFeed);
             newFeed.setPoster(user);
             newFeed.setUser(user);
             newFeed.setTime(new Date());
             tx.commit();
+            newFeed = new Wall();
             FacesMessage msg = new FacesMessage("Posted!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            newFeed.setText("");
-            newFeed.setImage(null);
         }
     }
 
     public void addImage(FileUploadEvent event) {
         byte[] imgBytes = event.getFile().getContents();
         Image img = new Image();
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-        em.persist(img);
         img.setImg(imgBytes);
-        tx.commit();
+        
         newFeed.setImage(img);
         FacesMessage msg = new FacesMessage("An image added!");
         FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -88,7 +91,6 @@ public class FeedController {
     }
 
     public Wall getNewFeed() {
-
         return newFeed;
     }
 

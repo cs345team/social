@@ -20,7 +20,7 @@
 
                     <h:commandButton id="searchSubmit" value="Search" action="#{searchController.doSearch()}"/>
                     &nbsp;
-                    <p:menuButton value="Options">
+                    <p:menuButton value="Options"  style="font-size: small">
                         <p:menuitem value="Log out" action="#{userController.logout()}"/>
                         <p:menuitem value="Delete"/>
                     </p:menuButton>
@@ -33,16 +33,20 @@
                 <h:link outcome="myProfile.xhtml">Edit Profile</h:link>
                 <br/>
                 <h3>Notifications</h3>
-                <p:dataTable var="requester" value="#{userController.requesters}">
-                    <p:column headerText="Name">
-                        <h:outputLabel value="#{requester.screenName}"/>
-                    </p:column>
+                <h:form>
+                    <p:dataTable var="requester" value="#{notificationController.requesters}" style="font-size: small">
+                        <p:column headerText="Name">
+                            <p:commandLink value="#{requester.screenName}" action="otherProfile?faces-redirect=true">
+                                <f:setPropertyActionListener value="#{requester}" target="#{userController.target}"/>
+                            </p:commandLink>
+                        </p:column>
 
-                    <p:column>
-                        <p:commandButton value="Agree"/>
-                        <p:commandButton value="Decline"/>
-                    </p:column>
-                </p:dataTable>
+                        <p:column>
+                            <p:commandButton value="Agree" style="width: 80px"/>
+                            <p:commandButton value="Decline" style="width: 80px"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
             </p:layoutUnit>
 
             <p:layoutUnit position="center" header="Wall">
@@ -89,17 +93,17 @@
             </p:layoutUnit>
 
             <p:layoutUnit position="east" header="Friends" size="250">
-                <p:dataTable var="person" value="#{friendsController.users}" >
+                <p:dataTable var="" value="" style="font-size: small">
                     <p:column>
-                        <p:graphicImage value="#{imageController.profileImage}" height="40" width="40">
-                            <f:param name="id" value="#{person.friend.id}"/>
-                        </p:graphicImage>
+                        
                     </p:column>
-                    <p:column >
-                        <h:outputText value="#{person.friend.screenName}"/>
+                    
+                    <p:column headerText="Name">
+                        <p:commandLink value="#{requester.screenName}" action="otherProfile?faces-redirect=true">
+                            <f:setPropertyActionListener value="#{requester}" target="#{userController.target}"/>
+                        </p:commandLink>
                     </p:column>
-
-                </p:dataTable> 
+                </p:dataTable>
             </p:layoutUnit>
         </p:layout>
 

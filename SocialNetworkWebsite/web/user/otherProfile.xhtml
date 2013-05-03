@@ -8,44 +8,38 @@
         <title>View Profile</title>
     </h:head>
     <h:body>
-        <h1>Hello #{userController.user.screenName}</h1>
+        <h1>#{userController.target.screenName}</h1>
         <h:link outcome="home.xhtml">Home</h:link>
         <br/><br/>
 
-        <h:form id="profile">
             <p:panelGrid columns="2">                
                 <h:outputLabel>ID: </h:outputLabel>
-                <h:outputLabel value="#{userController.user.id}"/>
+                <h:outputLabel value="#{userController.target.id}"/>
 
                 <h:outputLabel>Email: </h:outputLabel>
-                <h:outputLabel value="#{userController.user.email}"/>
+                <h:outputLabel value="#{userController.target.email}"/>
 
                 <h:outputLabel>Screen Name: </h:outputLabel>
-                <h:outputLabel value="#{userController.user.screenName}"/>
+                <h:outputLabel value="#{userController.target.screenName}"/>
 
                 <h:outputLabel>Profile Image: </h:outputLabel>
-                <p:graphicImage id="image" value="#{userController.profileImage}" height="200" width="200"/>
-
-
-                <h:outputLabel>Password: </h:outputLabel>
-                <h:outputLabel>********</h:outputLabel>
+                <p:graphicImage id="image" height="200" width="200"/>
 
                 <h:outputLabel>Real Name: </h:outputLabel>
-                <h:outputLabel id="realName" value="#{userController.user.realName}"/>
+                <h:outputLabel id="realName" value="#{userController.target.realName}"/>
 
                 <h:outputLabel>Gender: </h:outputLabel>
-                <h:outputLabel id="gender" value="#{userController.user.gender}"/>
+                <h:outputLabel id="gender" value="#{userController.target.gender}"/>
 
                 <h:outputLabel>Date of Birth: </h:outputLabel>
-                <h:outputLabel id="birthday" value="#{userController.user.birthday}">
+                <h:outputLabel id="birthday" value="#{userController.target.birthday}">
                     <f:convertDateTime pattern="M/d/yyyy"/>
                 </h:outputLabel>
 
                 <h:outputLabel>Interests: </h:outputLabel>
-                <h:outputLabel id="interests" value="#{userController.user.interests}"/>
+                <h:outputLabel id="interests" value="#{userController.target.interests}"/>
 
             </p:panelGrid>
-        </h:form>
     </h:body>
 </html>
 

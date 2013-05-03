@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -37,7 +38,7 @@ public class UserController {
     private List<String> interestOptions;
     private StreamedContent profileImage;
     private User friend;
-    private List<User> requesters;
+    private User target;
 
     /**
      * Creates a new instance of UserController
@@ -165,6 +166,10 @@ public class UserController {
         }
     }
 
+    public String viewProfile() {
+        return "dialog:otherProfile";
+    }
+
     public User getUser() {
         return user;
     }
@@ -256,17 +261,11 @@ public class UserController {
         this.friend = friend;
     }
 
-    public List<User> getRequesters() {
-        List<Requests> requestList = (List<Requests>) em.createNamedQuery("Requests.findByRequestee").setParameter("requestee", user).getResultList();
-        if (!requestList.isEmpty()) {
-            for (Requests r : requestList) {
-                requesters.add(r.getRequester());
-            }
-        }
-        return requesters;
+    public User getTarget() {
+        return target;
     }
 
-    public void setRequesters(List<User> requesters) {
-        this.requesters = requesters;
+    public void setTarget(User target) {
+        this.target = target;
     }
 }
