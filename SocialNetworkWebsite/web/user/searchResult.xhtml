@@ -9,7 +9,8 @@
     </h:head>
     <h:body>
         <h1>Result List:</h1>
-        <h:form>  
+        <h:form id="form">
+            
             <p:dataTable var="person" value="#{resultController.users}" > 
                 <p:column>
                     <p:graphicImage value="#{imageController.profileImage}" height="100" width="100">
@@ -24,16 +25,21 @@
                 <p:column headerText="Gender">  
                     <h:outputLabel value="#{person.gender}" />  
                 </p:column>
-                
+
                 <p:column headerText="Interests">
                     <h:outputLabel value="#{person.interests}"/>
                 </p:column>
-                
+
                 <p:column>
-                    <p:commandButton value="Add Friend"/>
+                    <p:commandButton value="Add Friend" action="#{userController.addFriend()}" update=":form:messages">
+                        <f:setPropertyActionListener value="#{person}" target="#{userController.friend}"/>
+                    </p:commandButton>
                     <p:commandButton value="View Profile"/>
                 </p:column>
-            </p:dataTable>  
+            </p:dataTable>
+
+            <p:growl id="messages" showDetail="true"/>
+
         </h:form> 
     </h:body>
 </html>

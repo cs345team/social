@@ -5,10 +5,14 @@
 package controller;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import model.Image;
 import model.User;
@@ -21,10 +25,9 @@ import server.EMF;
  * @author Madfrog
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class ResultController {
 
-    @ManagedProperty(value = "#{param.keyword}")
     private String keyword;
     @ManagedProperty(value = "#{userController.user}")
     private User user;
@@ -38,9 +41,25 @@ public class ResultController {
         em = EMF.createEntityManager();
         keyword = "";
     }
-    
-    public String checkKeyword() {
-        return null;
+
+    @PostConstruct
+    public void init() {
+        keyword = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("keyword");
+        doSearch();
+    }
+
+    public void doSearch() {
+        users = (List<User>) em.createNamedQuery("User.findByScreenName").setParameter("screenName", keyword).getResultList();
+        if (users.isEmpty()) {
+            List<User> result = (List<User>) em.createNamedQuery("User.findAll").getResultList();
+            for (User u : result) {
+                if (u.getInterests() != null) {
+                    if (u.getInterests().contains(keyword)) {
+                        users.add(u);
+                    }
+                }
+            }
+        }
     }
 
     public String getKeyword() {
@@ -60,7 +79,6 @@ public class ResultController {
     }
 
     public List<User> getUsers() {
-        users = (List<User>) em.createNamedQuery("User.findByScreenName").setParameter("screenName", keyword).getResultList();
         return users;
     }
 

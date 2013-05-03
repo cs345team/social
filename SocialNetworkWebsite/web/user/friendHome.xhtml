@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>ButtBook</title>
+    </h:head>
+        <h:body>
+
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north">
+                    <h:form>
+                        <h:link outcome="home.xhtml">Home</h:link>
+                        &nbsp;
+                        <h:inputText id="search" value="#{searchController.keyword}" size="34"/>
+                        <p:watermark for="search" value="Search by screen name or interests" />
+
+                        <h:commandButton id="searchSubmit" value="Search" action="#{searchController.doSearch()}"/>
+                        &nbsp;
+                        <p:menuButton value="Options">
+                            <p:menuitem value="Log out" action="#{userController.logout()}"/>
+                            <p:menuitem value="Delete"/>
+                        </p:menuButton>
+                    </h:form>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" header="#{userController.user.screenName}" size="250">
+                    <p:graphicImage value="#{userController.profileImage}"  height="200" width="200"/>
+                    <br/>
+                    <h:link outcome="myProfile.xhtml">Edit Profile</h:link>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center" header="Wall">
+                    <h:inputText id="post" value="#{postController.post.text}"/>
+                    <p:watermark for="post" value="Share your thoughts" />
+                    <h:commandButton id="postSubmit" value="Post" action="#{postController.doPost()}"/>
+                    &nbsp;
+                    <br/>
+                    <p:dataTable var="posts" value="#{postController.posts}" >
+                        <p:column >
+                            <h:outputText value="#{posts.text}"/>
+                        </p:column>
+
+                    </p:dataTable> 
+                </p:layoutUnit>
+
+                <p:layoutUnit position="east" header="Friends" size="250">
+                    <p:dataTable var="person" value="#{friendsController.users}" >
+                        <p:column>
+                            <p:graphicImage value="#{imageController.profileImage}" height="40" width="40">
+                                <f:param name="id" value="#{person.friend.id}"/>
+                            </p:graphicImage>
+                        </p:column>
+                        <p:column >
+                            <h:outputText value="#{person.friend.screenName}"/>
+                        </p:column>
+
+                    </p:dataTable> 
+                </p:layoutUnit>
+            </p:layout>
+
+        </h:body>
+</html>
+

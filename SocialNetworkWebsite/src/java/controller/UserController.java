@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import model.Image;
+import model.Requests;
 import model.User;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -35,6 +36,8 @@ public class UserController {
     private UIComponent component;
     private List<String> interestOptions;
     private StreamedContent profileImage;
+    private User friend;
+    private List<Requests> requests;
 
     /**
      * Creates a new instance of UserController
@@ -144,6 +147,24 @@ public class UserController {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
+    public void addFriend() {
+        List<Requests> list = (List<Requests>) em.createNamedQuery("Requests.findByRequestee").setParameter("requestee", friend).getResultList();
+        if (list.isEmpty()) {
+            EntityTransaction tx = em.getTransaction();
+            tx.begin();
+            Requests r = new Requests();
+            em.persist(r);
+            r.setRequester(user);
+            r.setRequestee(friend);
+            tx.commit();
+            FacesMessage msg = new FacesMessage("Your request has been sent.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } else {
+            FacesMessage msg = new FacesMessage("You already sent a request to this user.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+
     public User getUser() {
         return user;
     }
@@ -216,8 +237,8 @@ public class UserController {
             if (imgBytes != null) {
                 if (imgBytes.length > 0) {
                     imgStream = new DefaultStreamedContent(new ByteArrayInputStream(imgBytes), "image/png");
-                } 
-            } 
+                }
+            }
         }
         return imgStream;
 
@@ -225,5 +246,22 @@ public class UserController {
 
     public void setProfileImage(StreamedContent profileImage) {
         this.profileImage = profileImage;
+    }
+
+    public User getFriend() {
+        return friend;
+    }
+
+    public void setFriend(User friend) {
+        this.friend = friend;
+    }
+
+    public List<Requests> getRequests() {
+        requests = (List<Requests>) em.createNamedQuery("Requests.findByRequestee").setParameter("requestee", user).getResultList();
+        return requests;
+    }
+
+    public void setRequesters(List<Requests> requests) {
+        this.requests = requests;
     }
 }

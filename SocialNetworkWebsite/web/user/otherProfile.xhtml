@@ -1,12 +1,51 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>View Profile</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h1>Hello #{userController.user.screenName}</h1>
+        <h:link outcome="home.xhtml">Home</h:link>
+        <br/><br/>
+
+        <h:form id="profile">
+            <p:panelGrid columns="2">                
+                <h:outputLabel>ID: </h:outputLabel>
+                <h:outputLabel value="#{userController.user.id}"/>
+
+                <h:outputLabel>Email: </h:outputLabel>
+                <h:outputLabel value="#{userController.user.email}"/>
+
+                <h:outputLabel>Screen Name: </h:outputLabel>
+                <h:outputLabel value="#{userController.user.screenName}"/>
+
+                <h:outputLabel>Profile Image: </h:outputLabel>
+                <p:graphicImage id="image" value="#{userController.profileImage}" height="200" width="200"/>
+
+
+                <h:outputLabel>Password: </h:outputLabel>
+                <h:outputLabel>********</h:outputLabel>
+
+                <h:outputLabel>Real Name: </h:outputLabel>
+                <h:outputLabel id="realName" value="#{userController.user.realName}"/>
+
+                <h:outputLabel>Gender: </h:outputLabel>
+                <h:outputLabel id="gender" value="#{userController.user.gender}"/>
+
+                <h:outputLabel>Date of Birth: </h:outputLabel>
+                <h:outputLabel id="birthday" value="#{userController.user.birthday}">
+                    <f:convertDateTime pattern="M/d/yyyy"/>
+                </h:outputLabel>
+
+                <h:outputLabel>Interests: </h:outputLabel>
+                <h:outputLabel id="interests" value="#{userController.user.interests}"/>
+
+            </p:panelGrid>
+        </h:form>
     </h:body>
 </html>
 

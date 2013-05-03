@@ -52,6 +52,16 @@ CREATE TABLE `friends` (
 	FOREIGN KEY (`friend_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) AUTO_INCREMENT = 1;
 
+CREATE TABLE `requests` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`requester_id` int(11) NOT NULL,	
+	`requestee_id` int(11) NOT NULL,
+	PRIMARY KEY(`id`),
+	FOREIGN KEY (`requester_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+	FOREIGN KEY (`requestee_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) AUTO_INCREMENT = 1;
+
 CREATE TABLE `invite_code` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`user_id` int(11) NOT NULL,

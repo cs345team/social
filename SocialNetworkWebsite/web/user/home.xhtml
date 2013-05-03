@@ -4,7 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
-    
+
     <h:head>
         <title>User's Home Page</title>
     </h:head>
@@ -15,8 +15,8 @@
                 <h:form>
                     <h:link outcome="home.xhtml">Home</h:link>
                     &nbsp;
-                    <h:inputText id="search" value="#{searchController.keyword}"/>
-                    <p:watermark for="search" value="Search for people" />
+                    <h:inputText id="search" value="#{searchController.keyword}" size="34"/>
+                    <p:watermark for="search" value="Search by screen name or interests" />
 
                     <h:commandButton id="searchSubmit" value="Search" action="#{searchController.doSearch()}"/>
                     &nbsp;
@@ -31,34 +31,46 @@
                 <p:graphicImage value="#{userController.profileImage}"  height="200" width="200"/>
                 <br/>
                 <h:link outcome="myProfile.xhtml">Edit Profile</h:link>
+                <br/>
+                <h3>Notifications</h3>
+                <p:dataTable var="request" value="#{userController.requests}">
+                    <p:column headerText="Name">
+                        <h:outputLabel value="#{request.requester.screenName}"/>
+                    </p:column>
+
+                    <p:column>
+                        <p:commandButton value="Agree"/>
+                        <p:commandButton value="Decline"/>
+                    </p:column>
+                </p:dataTable>
             </p:layoutUnit>
 
             <p:layoutUnit position="center" header="Wall">
                 <h:inputText id="post" value="#{postController.post.text}"/>
-                    <p:watermark for="post" value="Share your thoughts" />
-                    <h:commandButton id="postSubmit" value="Post" action="#{postController.doPost()}"/>
-                    &nbsp;
-                    <br/>
-                    <p:dataTable var="posts" value="#{postController.posts}" >
-                <p:column >
-                    <h:outputText value="#{posts.text}"/>
-                </p:column>
-                
-            </p:dataTable> 
+                <p:watermark for="post" value="Share your thoughts" />
+                <h:commandButton id="postSubmit" value="Post" action="#{postController.doPost()}"/>
+                &nbsp;
+                <br/>
+                <p:dataTable var="posts" value="#{postController.posts}" >
+                    <p:column >
+                        <h:outputText value="#{posts.text}"/>
+                    </p:column>
+
+                </p:dataTable> 
             </p:layoutUnit>
 
             <p:layoutUnit position="east" header="Friends" size="250">
                 <p:dataTable var="person" value="#{friendsController.users}" >
-                <p:column>
-                    <p:graphicImage value="#{imageController.profileImage}" height="40" width="40">
-                        <f:param name="id" value="#{person.friend.id}"/>
-                    </p:graphicImage>
+                    <p:column>
+                        <p:graphicImage value="#{imageController.profileImage}" height="40" width="40">
+                            <f:param name="id" value="#{person.friend.id}"/>
+                        </p:graphicImage>
                     </p:column>
-                <p:column >
-                    <h:outputText value="#{person.friend.screenName}"/>
-                </p:column>
-                
-            </p:dataTable> 
+                    <p:column >
+                        <h:outputText value="#{person.friend.screenName}"/>
+                    </p:column>
+
+                </p:dataTable> 
             </p:layoutUnit>
         </p:layout>
 
