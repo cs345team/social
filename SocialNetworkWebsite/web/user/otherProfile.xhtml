@@ -8,36 +8,39 @@
         <title>View Profile</title>
     </h:head>
     <h:body>
-        <h1>#{userController.target.screenName}</h1>
+        <h1>#{viewProfileController.target.screenName}</h1>
         <h:link outcome="home.xhtml">Home</h:link>
         <br/><br/>
 
             <p:panelGrid columns="2">                
                 <h:outputLabel>ID: </h:outputLabel>
-                <h:outputLabel value="#{userController.target.id}"/>
+                <h:outputLabel value="#{viewProfileController.target.id}"/>
 
                 <h:outputLabel>Email: </h:outputLabel>
-                <h:outputLabel value="#{userController.target.email}"/>
+                <h:outputLabel value="#{viewProfileController.target.email}"/>
 
                 <h:outputLabel>Screen Name: </h:outputLabel>
-                <h:outputLabel value="#{userController.target.screenName}"/>
+                <h:outputLabel value="#{viewProfileController.target.screenName}"/>
 
                 <h:outputLabel>Profile Image: </h:outputLabel>
-                <p:graphicImage id="image" height="200" width="200"/>
+                <p:graphicImage id="image" value="#{imageController.profileImage}" height="200" width="200">
+                    <f:param name="id" value="#{viewProfileController.target.id}"/>
+                </p:graphicImage>
+                
 
                 <h:outputLabel>Real Name: </h:outputLabel>
-                <h:outputLabel id="realName" value="#{userController.target.realName}"/>
+                <h:outputLabel id="realName" value="#{viewProfileController.target.realName}"/>
 
                 <h:outputLabel>Gender: </h:outputLabel>
-                <h:outputLabel id="gender" value="#{userController.target.gender}"/>
+                <h:outputLabel id="gender" value="#{viewProfileController.target.gender}"/>
 
                 <h:outputLabel>Date of Birth: </h:outputLabel>
-                <h:outputLabel id="birthday" value="#{userController.target.birthday}">
+                <h:outputLabel id="birthday" value="#{viewProfileController.target.birthday}">
                     <f:convertDateTime pattern="M/d/yyyy"/>
                 </h:outputLabel>
 
                 <h:outputLabel>Interests: </h:outputLabel>
-                <h:outputLabel id="interests" value="#{userController.target.interests}"/>
+                <h:outputLabel id="interests" value="#{viewProfileController.target.interests}"/>
 
             </p:panelGrid>
     </h:body>

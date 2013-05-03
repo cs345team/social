@@ -5,10 +5,9 @@
 package controller;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.persistence.EntityManager;
 import model.User;
-import server.EMF;
 
 /**
  *
@@ -17,8 +16,8 @@ import server.EMF;
 @ManagedBean
 @RequestScoped
 public class ViewProfileController {
-
-//    private EntityManager em;
+    
+    @ManagedProperty(value = "#{userController.target}")
     private User target;
 
     /**

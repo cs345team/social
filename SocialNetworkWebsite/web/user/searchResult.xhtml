@@ -10,7 +10,7 @@
     <h:body>
         <h1>Result List:</h1>
         <h:form id="form">
-            
+
             <p:dataTable var="person" value="#{resultController.users}" > 
                 <p:column>
                     <p:graphicImage value="#{imageController.profileImage}" height="100" width="100">
@@ -34,7 +34,9 @@
                     <p:commandButton value="Add Friend" action="#{userController.addFriend()}" update=":form:messages">
                         <f:setPropertyActionListener value="#{person}" target="#{userController.friend}"/>
                     </p:commandButton>
-                    <p:commandButton value="View Profile"/>
+                    <p:commandButton value="View Profile" action="otherProfile.xhtml?faces-redirect=true">
+                        <f:setPropertyActionListener value="#{person}" target="#{viewProfileController.target}"/>
+                    </p:commandButton>
                 </p:column>
             </p:dataTable>
 

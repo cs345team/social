@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -10,6 +9,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import model.Friends;
 import model.Image;
 import model.Requests;
 import model.User;
@@ -166,12 +166,55 @@ public class UserController {
         }
     }
 
+    public void agree() {
+        List<Requests> list = (List<Requests>) em.createNamedQuery("Requests.findByRequestee").setParameter("requestee", user).getResultList();
+        Requests request = null;
+        System.out.println(user.getScreenName() + " " + target.getScreenName());
+        for (Requests r : list) {
+            if ((r.getRequester().equals(target)) && (r.getRequestee().equals(user))) {
+                request = r;
+            }
+        }
+        System.out.println(request);
+
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        Friends f1 = new Friends();
+        Friends f2 = new Friends();
+        em.persist(f1);
+        em.persist(f2);
+        f1.setUser(user);
+        f1.setFriend(target);
+        f2.setUser(target);
+        f2.setFriend(user);
+        em.remove(request);
+        tx.commit();
+        FacesMessage message = new FacesMessage(target.getScreenName() + "is your friend now.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void decline() {
+        List<Requests> list = (List<Requests>) em.createNamedQuery("Requests.findByRequestee").setParameter("requestee", user).getResultList();
+        Requests request = null;
+        for (Requests r : list) {
+            if ((r.getRequester() == target) && (r.getRequestee() == user)) {
+                request = r;
+            }
+        }
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        em.remove(request);
+        tx.commit();
+        FacesMessage message = new FacesMessage("You've declined " + target.getScreenName() + "'s request.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
     public String viewProfile() {
         return "dialog:otherProfile";
     }
-    
-    public void clearProfile(){
-    EntityTransaction tx = em.getTransaction();
+
+    public void clearProfile() {
+        EntityTransaction tx = em.getTransaction();
         tx.begin();
         em.persist(user);
         user.setProfileImg(null);
@@ -179,15 +222,15 @@ public class UserController {
         FacesMessage msg = new FacesMessage("Your profile image is deleted!");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
-    public Boolean hasProfile(){
-        if(user.getProfileImg() != null) {
+
+    public Boolean hasProfile() {
+        if (user.getProfileImg() != null) {
             return true;
         } else {
             return false;
         }
     }
-    
+
     public User getUser() {
         return user;
     }
