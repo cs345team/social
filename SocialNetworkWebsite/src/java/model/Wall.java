@@ -1,4 +1,3 @@
-
 package model;
 
 import java.io.Serializable;
@@ -32,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Wall.findByTime", query = "SELECT w FROM Wall w WHERE w.time = :time"),
     @NamedQuery(name = "Wall.findByUser", query = "SELECT w FROM Wall w WHERE w.user = :user")})
 public class Wall implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -103,8 +103,6 @@ public class Wall implements Serializable {
         this.image = image;
     }
 
-
-
     public User getPoster() {
         return poster;
     }
@@ -113,8 +111,6 @@ public class Wall implements Serializable {
         this.poster = poster;
     }
 
-
-
     public User getUser() {
         return user;
     }
@@ -122,8 +118,6 @@ public class Wall implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
-
-
 
     @Override
     public int hashCode() {
@@ -149,5 +143,12 @@ public class Wall implements Serializable {
     public String toString() {
         return "model.Wall[ id=" + id + " ]";
     }
-    
+
+    public Boolean hasImage() {
+        if (this.image != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

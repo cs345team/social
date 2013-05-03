@@ -37,7 +37,7 @@ public class UserController {
     private List<String> interestOptions;
     private StreamedContent profileImage;
     private User friend;
-    private List<Requests> requests;
+    private List<User> requesters;
 
     /**
      * Creates a new instance of UserController
@@ -256,12 +256,17 @@ public class UserController {
         this.friend = friend;
     }
 
-    public List<Requests> getRequests() {
-        requests = (List<Requests>) em.createNamedQuery("Requests.findByRequestee").setParameter("requestee", user).getResultList();
-        return requests;
+    public List<User> getRequesters() {
+        List<Requests> requestList = (List<Requests>) em.createNamedQuery("Requests.findByRequestee").setParameter("requestee", user).getResultList();
+        if (!requestList.isEmpty()) {
+            for (Requests r : requestList) {
+                requesters.add(r.getRequester());
+            }
+        }
+        return requesters;
     }
 
-    public void setRequesters(List<Requests> requests) {
-        this.requests = requests;
+    public void setRequesters(List<User> requesters) {
+        this.requesters = requesters;
     }
 }

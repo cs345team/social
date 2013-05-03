@@ -4,11 +4,11 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
-
     <h:head>
         <title>User's Home Page</title>
     </h:head>
     <h:body>
+
 
         <p:layout fullPage="true">
             <p:layoutUnit position="north">
@@ -33,9 +33,9 @@
                 <h:link outcome="myProfile.xhtml">Edit Profile</h:link>
                 <br/>
                 <h3>Notifications</h3>
-                <p:dataTable var="request" value="#{userController.requests}">
+                <p:dataTable var="requester" value="#{userController.requesters}">
                     <p:column headerText="Name">
-                        <h:outputLabel value="#{request.requester.screenName}"/>
+                        <h:outputLabel value="#{requester.screenName}"/>
                     </p:column>
 
                     <p:column>
@@ -46,17 +46,46 @@
             </p:layoutUnit>
 
             <p:layoutUnit position="center" header="Wall">
-                <h:inputText id="post" value="#{postController.post.text}"/>
-                <p:watermark for="post" value="Share your thoughts" />
-                <h:commandButton id="postSubmit" value="Post" action="#{postController.doPost()}"/>
-                &nbsp;
-                <br/>
-                <p:dataTable var="posts" value="#{postController.posts}" >
-                    <p:column >
-                        <h:outputText value="#{posts.text}"/>
-                    </p:column>
+                <h:form id="superForm">
+                    <p:growl id="growl" showDetail="true" life="2000"/>
+                    <p:inputTextarea id="postText" rows="4" cols="50"  value ="#{feedController.newFeed.text}"/>
+                    <br/>
+                    <p:commandButton id="imageAdder" value="Add an image" icon="ui-icon-edit"
+                                     type="button" onclick="imageOP.show();"/>
+                    <p:commandButton id="submitPost" value="Post" 
+                                     action="#{feedController.post()}" update="@form"/>
+                    <p:scrollPanel id="scroll">
+                        <p:dataGrid id="feedList" var="feed" value="#{wallController.getWalls()}" columns='1' rows='10'
+                                    paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                    rowsPerPageTemplate="10,15,20" lazy="true">
+                            <p:fieldset legend="#{feed.time.toLocaleString()}">
+                                <h:panelGrid>
+                                    <p:row>
+                                        <p:column rowspan="2">
+                                            <p:graphicImage value="#{imageController.profileImage}" height="50" width="50">
+                                                <f:param name="id" value="#{feed.poster.id}"/>
+                                            </p:graphicImage> 
+                                        </p:column>
+                                        <p:column>
+                                            <h:outputText value="#{feed.poster.screenName} says:" />
 
-                </p:dataTable> 
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <h:outputText value="#{feed.text}"/>
+                                    </p:row>
+                                    <p:row>
+                                        <p:graphicImage value="#{imageController.wallImage}" rendered="#{feed.hasImage()}">
+                                            <f:param name="feedId" value="#{feed.id}"/>
+                                        </p:graphicImage> 
+                                    </p:row>
+                                </h:panelGrid>
+                            </p:fieldset>
+                        </p:dataGrid>
+                    </p:scrollPanel>
+                </h:form>
+
+
             </p:layoutUnit>
 
             <p:layoutUnit position="east" header="Friends" size="250">
@@ -74,6 +103,18 @@
             </p:layoutUnit>
         </p:layout>
 
+        <p:growl id="messages" showDetail="true" life="2000"/>
+        <p:dialog id="imageEditorPanel" widgetVar="imageOP" header="image size less than 1MB">
+            <h:form enctype="multipart/form-data">  
+                <p:fileUpload fileUploadListener="#{feedController.addImage}"
+                              mode="advanced"  
+                              update="@form :messages"  
+                              auto="false"  
+                              sizeLimit="1000000"   
+                              allowTypes="/(\.|\/)(jpe?g|png)$/"
+                              oncomplete="imageOP.hide();"/>  
+            </h:form>
+        </p:dialog>
     </h:body>
 </html>
 
