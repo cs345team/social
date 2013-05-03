@@ -4,6 +4,7 @@
  */
 package controller;
 
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -41,7 +42,9 @@ public class codeController {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         InviteCode c = new InviteCode();
+        Date t = new Date();
         em.persist(c);
+        c.setTime(t);
         c.setOwner(user);
         c.setCode(newCode);
         tx.commit();

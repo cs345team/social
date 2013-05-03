@@ -73,15 +73,18 @@ public class Register {
     public void isCodeValid() {
         List<InviteCode> codes = (List<InviteCode>) em.createNamedQuery("InviteCode.findByCode").setParameter("code", inviteCode).getResultList();
         Date now = new Date();
-        if ((!codes.isEmpty()) && (now.getTime() - codes.get(0).getTime().getTime()) > 30 * 24 * 60 * 60 * 1000) {
-            code = codes.get(0);
-            valid = true;
-            FacesMessage message = new FacesMessage("Congrats!Invitation Code is valid!");
-            FacesContext.getCurrentInstance().addMessage(component.getClientId(), message);
-        } else {
+        if (codes.isEmpty()) {
             valid = false;
             FacesMessage message = new FacesMessage("Sorry!Invitation Code is not valid or already expired.");
             FacesContext.getCurrentInstance().addMessage(component.getClientId(), message);
+        } else {
+            code = codes.get(0);
+            long life = (long) 30 * 24 * 60 * 60 * 1000;
+            if ((now.getTime() - code.getTime().getTime()) < life) {
+                valid = true;
+                FacesMessage message = new FacesMessage("Congrats!Invitation Code is valid!");
+                FacesContext.getCurrentInstance().addMessage(component.getClientId(), message);
+            }
         }
     }
 

@@ -49,14 +49,13 @@ public class UserController {
 
     public String login() {
         List<User> users = (List<User>) em.createNamedQuery("User.findByScreenName").setParameter("screenName", screenName).getResultList();
-
         if (users.isEmpty()) {
             FacesMessage message = new FacesMessage("User name does not exist!");
             FacesContext.getCurrentInstance().addMessage(null, message);
         } else if ((user = users.get(0)).getConfirmationStatus() == 0) {
             FacesMessage message = new FacesMessage("This account has not been activitied yet.");
             FacesContext.getCurrentInstance().addMessage(null, message);
-        } else if (!(user = users.get(0)).getPasswd().equals(passWd)) {
+        } else if (!(user = users.get(0)).getPasswd().equals(passWd) || !(user = users.get(0)).getScreenName().equals(screenName)) {
             FacesMessage message = new FacesMessage("User name and password dose not match!");
             FacesContext.getCurrentInstance().addMessage(null, message);
         } else {
@@ -225,17 +224,6 @@ public class UserController {
         tx.commit();
         FacesMessage message = new FacesMessage("You've declined " + target.getScreenName() + "'s request.");
         FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-
-    public void delete() {
-        List<Requests> list = (List<Requests>) em.createNamedQuery("Requests.findByRequestee").setParameter("requestee", user).getResultList();
-        Requests request = null;
-//        System.out.println(user.getScreenName() + " " + target.getScreenName());
-        for (Requests r : list) {
-            if ((r.getRequester().equals(target)) && (r.getRequestee().equals(user))) {
-                request = r;
-            }
-        }
     }
 
     public void deleteFriend() {

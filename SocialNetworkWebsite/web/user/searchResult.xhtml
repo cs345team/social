@@ -38,7 +38,7 @@
                         <f:setPropertyActionListener value="#{person}" target="#{userController.friend}"/>
                     </p:commandButton>
                     <p:commandButton value="View Profile" action="otherProfile.xhtml?faces-redirect=true">
-                        <f:setPropertyActionListener value="#{person}" target="#{viewProfileController.target}"/>
+                        <f:setPropertyActionListener value="#{person}" target="#{userController.target}"/>
                     </p:commandButton>
                 </p:column>
             </p:dataTable>
