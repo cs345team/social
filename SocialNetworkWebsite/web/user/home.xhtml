@@ -79,7 +79,7 @@
             <p:layoutUnit position="east" header="Friends" size="250">
                 <p:dataTable var="person" value="#{friendsController.users}" >
                 <p:column>
-                    <p:graphicImage value="#{imageController.profileImage}" height="40" width="40">
+                    <p:graphicImage value="#{imageController.profileImage}" cache="false" height="40" width="40">
                         <f:param name="id" value="#{person.friend.id}"/>
                     </p:graphicImage>
                     </p:column>

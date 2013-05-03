@@ -143,7 +143,24 @@ public class UserController {
         FacesMessage msg = new FacesMessage("Your profile image is updated!");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-
+    
+    public void clearProfile(){
+    EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        em.persist(user);
+        user.setProfileImg(null);
+        tx.commit();
+        FacesMessage msg = new FacesMessage("Your profile image is deleted!");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
+    public Boolean hasProfile(){
+        if(user.getProfileImg() != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public User getUser() {
         return user;
     }
