@@ -12,6 +12,7 @@ import javax.faces.event.PhaseId;
 import javax.persistence.EntityManager;
 import model.Image;
 import model.User;
+import model.Wall;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import server.EMF;
@@ -26,6 +27,8 @@ public class ImageController {
 
     private EntityManager em;
     private StreamedContent profileImage;
+    private StreamedContent wallImage;
+    private StreamedContent imageById;
 
     /**
      * Creates a new instance of ImageController
@@ -46,6 +49,30 @@ public class ImageController {
             String id = context.getExternalContext().getRequestParameterMap().get("id");
             User user = (User) em.createNamedQuery("User.findById").setParameter("id", Integer.valueOf(id)).getResultList().get(0);
             Image img = user.getProfileImg();
+            if (img != null) {
+                byte[] imgBytes = img.getImg();
+                if (imgBytes != null) {
+                    if (imgBytes.length > 0) {
+                        imgStream = new DefaultStreamedContent(new ByteArrayInputStream(imgBytes), "image/png");
+                    }
+                }
+            }
+            return imgStream;
+        }
+    }
+    
+    public StreamedContent getWallImage() {
+        StreamedContent imgStream = new DefaultStreamedContent();
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+            // So, we're rendering the view. Return a stub StreamedContent so that it will generate right URL.
+            return new DefaultStreamedContent();
+        } else {
+            // So, browser is requesting the image. Get ID value from actual request param.
+            String id = context.getExternalContext().getRequestParameterMap().get("feedId");
+            Wall wall = (Wall) em.createNamedQuery("Wall.findById").setParameter("id", Integer.valueOf(id)).getResultList().get(0);
+            Image img = wall.getImage();
             if (img != null) {
                 byte[] imgBytes = img.getImg();
                 if (imgBytes != null) {
