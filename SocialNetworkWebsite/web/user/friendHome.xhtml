@@ -11,25 +11,29 @@
 
         <p:layout fullPage="true">
             <p:layoutUnit position="north">
-                <h:form>
-                    <h:link outcome="home.xhtml" style="font-size: small">Home</h:link>
-                    &nbsp;
-                    <h:inputText id="search" value="#{searchController.keyword}" size="34" style="font-size: small"/>
-                    <p:watermark for="search" value="Search by screen name or interests" />
-
-                    <h:commandButton id="searchSubmit" value="Search" action="#{searchController.doSearch()}"/>
-                    &nbsp;
-                    <p:panel style="font-size: small">
-                        <p:graphicImage value="#{userController.profileImage}"  height="50" width="50"/>
+                <h:form style="background-color: #3b5998">
+                    <h:panelGroup style="margin: 20px">
+                        <h:link outcome="home.xhtml" style="font-size: small; color: #FFFFFF">Home</h:link>
                         &nbsp;
-                        <h:outputText value="Welcome, #{userController.user.screenName}" style="font-size: small"/>
+                        <h:inputText id="search" value="#{searchController.keyword}" size="34" style="font-size: small"/>
+                        <p:watermark for="search" value="Search by screen name or interests" />
+
+                        <h:commandButton id="searchSubmit" value="Search" action="#{searchController.doSearch()}"/>
                         &nbsp;
-                        <p:menuButton value="Options"  style="font-size: small">
-                            <p:menuitem value="Log out" action="#{userController.logout()}" style="font-size: small"/>
-                        </p:menuButton>
-                    </p:panel>
+                        <p:panel style="font-size: small; background-color: #3b5998">
+                            <p:graphicImage value="#{userController.profileImage}"  height="50" width="50"/>
+                            &nbsp;
+                            <h:outputText value="Welcome, #{userController.user.screenName}" style="font-size: small; color: #FFFFFF"/>
+                            &nbsp;
+                            <p:menuButton value="Options"  style="font-size: small">
+                                <p:menuitem value="Log out" action="#{userController.logout()}" style="font-size: small"/>
+                            </p:menuButton>
+                            <h:panelGroup style="float: right">
+                                <p:graphicImage value="/resources/pic/title.png" width="200" height="50"/>
+                            </h:panelGroup>
+                        </p:panel>
 
-
+                    </h:panelGroup>
                 </h:form>
             </p:layoutUnit>
 

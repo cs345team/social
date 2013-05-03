@@ -5,50 +5,54 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Social Network Website</title>
+        <title>ButtBook</title>
     </h:head>
-    <h:body>
-        <h1>Welcome to our website</h1>
-
-        <h:link outcome="registration.xhtml" value="Sign Up"/>
-        <br/>
-        <br/>
-
-        <h:form>
-            <h:panelGrid columns="3">
-                <h:outputLabel for="username">Username</h:outputLabel>
-                <h:inputText id="username" value="#{userController.screenName}" required="true" requiredMessage="Required">
-                    <f:ajax event="blur" render="usernameMessage" />
-                </h:inputText>
-                <h:message id="usernameMessage" for="username" />
-
-                <h:outputLabel for="password">Password</h:outputLabel>
-                <h:inputSecret id="password" value="#{userController.passWd}" required="true" redisplay="true" requiredMessage="Required">
-                    <f:ajax event="blur" render="passwordMessage" />
-                </h:inputSecret>
-                <h:message id="passwordMessage" for="password" />
-
-                <h:panelGroup />
-                <h:commandButton value="Sign In" action="#{userController.login}">
-                    <f:ajax rendered="#{!userController.isLoggedIn}" execute="@form" render="@form"/>
-                </h:commandButton>
-                <h:messages globalOnly="true" layout="table"/>
-            </h:panelGrid>
+    <h:body style="background-color: #e7e7e7">
+        <h:form style="background-color: #3b5998">
+                <p:graphicImage value="/resources/pic/title.png" width="400" height="100"/>
         </h:form>
+        <h:panelGrid columns="2" style="margin-top: 20px">
+            <h:panelGroup>
+                <h:form style="margin: 20px">
+                    <h:link outcome="registration.xhtml" value="Sign Up"/>
+                    <h:panelGrid columns="3" style="margin-top: 20px">
+                        <h:outputLabel for="username">Username</h:outputLabel>
+                        <h:inputText id="username" value="#{userController.screenName}" required="true" requiredMessage="Required">
+                            <f:ajax event="blur" render="usernameMessage" />
+                        </h:inputText>
+                        <h:message id="usernameMessage" for="username" />
 
-        <br/>
-        <br/>
-        <h:form>
-            <h:inputText id="search" value="#{searchController.keyword}" required="true" 
-                         requiredMessage="Please input search keyword." size="34">
-                <f:ajax event="blur" render="searchMessage"/>
-            </h:inputText>
-            <p:watermark for="search" value="Search by Screenname or Interests" />
+                        <h:outputLabel for="password">Password</h:outputLabel>
+                        <h:inputSecret id="password" value="#{userController.passWd}" required="true" redisplay="true" requiredMessage="Required">
+                            <f:ajax event="blur" render="passwordMessage" />
+                        </h:inputSecret>
+                        <h:message id="passwordMessage" for="password" />
 
-            <h:commandButton id="searchSubmit" value="Search" action="#{searchController.doGuestSearch()}"/>
-            <h:message id="searchMessage" for="search"/>
-        </h:form>
-        
+                        <h:panelGroup />
+                        <h:commandButton value="Sign In" action="#{userController.login}">
+                            <f:ajax rendered="#{!userController.isLoggedIn}" execute="@form" render="@form"/>
+                        </h:commandButton>
+                        <h:messages globalOnly="true" layout="table"/>
+                    </h:panelGrid>
+                </h:form>
+                <h:form style="margin: 20px">
+                    <h:inputText id="search" value="#{searchController.keyword}" required="true" 
+                                 requiredMessage="Please input search keyword." size="34">
+                        <f:ajax event="blur" render="searchMessage"/>
+                    </h:inputText>
+                    <p:watermark for="search" value="Search by Screenname or Interests" />
+
+                    <h:commandButton id="searchSubmit" value="Search" action="#{searchController.doGuestSearch()}"/>
+                    <br/>
+                    <h:message id="searchMessage" for="search"/>
+                </h:form>
+            </h:panelGroup>
+            <h:panelGroup>
+                <p:graphicImage value="/resources/pic/networking.png" width="300" height="300"/>
+            </h:panelGroup>
+
+        </h:panelGrid>
+
     </h:body>
 </html>
 

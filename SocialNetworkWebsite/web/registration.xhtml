@@ -2,15 +2,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Registration</title>
+        <title>Sign Up for ButtBook</title>
     </h:head>
-    <h:body>
-        <h1>Sign Up</h1>
-        <h2>It's free and always will be.</h2>
+    <h:body style="background-color: #e7e7e7">
+        <h:form style="background-color: #3b5998">
+            <h:column>
+                <p:graphicImage value="/resources/pic/title.png" width="400" height="100"/>
+            </h:column>
+        </h:form>
 
-        <h:form>
+
+        <h:form style="margin: 20px">
+            <h:link outcome="index.xhtml" value="Home"/>
+            <h1>Sign Up</h1>
+            <h2>It's free and always will be.</h2>
             <h:panelGrid columns="4">
                 <h:outputLabel for="inviteCode">Invitation Code</h:outputLabel>
                 <h:inputText id="inviteCode" value="#{register.inviteCode}" 
