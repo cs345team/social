@@ -4,12 +4,14 @@
  */
 package controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.persistence.EntityManager;
+import model.Friends;
 import model.User;
 import model.Wall;
 import org.primefaces.model.LazyDataModel;
@@ -29,6 +31,7 @@ public class FriendHomeController {
     private EntityManager em;
     private LazyDataModel<Wall> lazyModel;
     private List<Wall> walls;
+    private List<User> friends;
     /**
      * Creates a new instance of FriendHomeController
      */
@@ -60,5 +63,20 @@ public class FriendHomeController {
         List<Wall> wallList = (List<Wall>) em.createNamedQuery("Wall.findByUser").setParameter("user", friend).getResultList();
         Collections.reverse(wallList);
         return wallList;
+    }
+    
+    public List<User> getFriends() {
+        friends = new ArrayList<User>();
+        List<Friends> list = (List<Friends>) em.createNamedQuery("Friends.findByUser").setParameter("user", friend).getResultList();
+        if (!list.isEmpty()) {
+            for (Friends f : list) {
+                friends.add(f.getFriend());
+            }
+        }
+        return friends;
+    }
+
+    public void setFriends(List<User> friends) {
+        this.friends = friends;
     }
 }

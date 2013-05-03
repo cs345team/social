@@ -287,6 +287,10 @@ public class UserController {
             return false;
         }
     }
+    
+    public String requestCode() {
+        return "/user/code.xhtml?faces-redirect=true";
+    }
 
     public User getUser() {
         return user;

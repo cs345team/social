@@ -58,6 +58,10 @@
                         </p:column>
                     </p:dataTable>
                 </h:form>
+                
+                <h:form>
+                    <h:commandLink value="Request Invitation Code" action="#{userController.requestCode()}"/>
+                </h:form>
             </p:layoutUnit>
 
             <p:layoutUnit position="center" header="Wall">
@@ -108,7 +112,7 @@
                 <h:form  id="friendList">
                     <p:dataTable var="friend" value="#{friendsController.friends}" style="font-size: small">
                         <p:column>
-                            <p:graphicImage value="#{imageController.profileImage}" width="50" height="50">
+                            <p:graphicImage value="#{imageController.profileImage}" width="40" height="40">
                                 <f:param name="id" value="#{friend.id}"/>
                             </p:graphicImage>
                         </p:column>

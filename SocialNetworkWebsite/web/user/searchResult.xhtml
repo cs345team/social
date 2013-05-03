@@ -9,11 +9,14 @@
     </h:head>
     <h:body>
         <h1>Result List:</h1>
+        <h:link outcome="home.xhtml" style="font-size: small">Home</h:link>
+        <br/>
+        <br/>
         <h:form id="form" style="font-size: small">
 
             <p:dataTable var="person" value="#{resultController.users}" style="font-size: small"> 
                 <p:column>
-                    <p:graphicImage value="#{imageController.profileImage}" height="100" width="100">
+                    <p:graphicImage value="#{imageController.profileImage}" height="50" width="50">
                         <f:param name="id" value="#{person.id}"/>
                     </p:graphicImage>
                 </p:column>
