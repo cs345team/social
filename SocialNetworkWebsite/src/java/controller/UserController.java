@@ -106,7 +106,7 @@ public class UserController {
     public void changeInterests() {
         String interests = "";
         for (String s : interestOptions) {
-            interests += s + "/";
+            interests += s + " ";
         }
         EntityTransaction tx = em.getTransaction();
         tx.begin();

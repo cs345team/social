@@ -24,7 +24,6 @@
                         <p:menuitem value="Log out" action="#{userController.logout()}"/>
                         <p:menuitem value="Delete"/>
                     </p:menuButton>
-
                 </h:form>
             </p:layoutUnit>
 
@@ -78,7 +77,17 @@
             </p:layoutUnit>
 
             <p:layoutUnit position="east" header="Friends" size="250">
-
+                <p:dataTable var="person" value="#{friendsController.users}" >
+                <p:column>
+                    <p:graphicImage value="#{imageController.profileImage}" height="40" width="40">
+                        <f:param name="id" value="#{person.friend.id}"/>
+                    </p:graphicImage>
+                    </p:column>
+                <p:column >
+                    <h:outputText value="#{person.friend.screenName}"/>
+                </p:column>
+                
+            </p:dataTable> 
             </p:layoutUnit>
         </p:layout>
 

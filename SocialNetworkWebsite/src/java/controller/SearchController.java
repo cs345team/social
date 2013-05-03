@@ -26,6 +26,10 @@ public class SearchController {
     public String doSearch() {
         return "/user/searchResult.xhtml?faces-redirect=true&keyword=" + keyword;
     }
+    
+    public String doGuestSearch() {
+        return "/guestSearchResult.xhtml?faces-redirect=true&keyword=" + keyword;
+    }
 
     public String getKeyword() {
         return keyword;
