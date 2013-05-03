@@ -169,13 +169,13 @@ public class UserController {
     public void agree() {
         List<Requests> list = (List<Requests>) em.createNamedQuery("Requests.findByRequestee").setParameter("requestee", user).getResultList();
         Requests request = null;
-        System.out.println(user.getScreenName() + " " + target.getScreenName());
+//        System.out.println(user.getScreenName() + " " + target.getScreenName());
         for (Requests r : list) {
             if ((r.getRequester().equals(target)) && (r.getRequestee().equals(user))) {
                 request = r;
             }
         }
-        System.out.println(request);
+//        System.out.println(request);
 
         EntityTransaction tx = em.getTransaction();
         tx.begin();
@@ -189,7 +189,7 @@ public class UserController {
         f2.setFriend(user);
         em.remove(request);
         tx.commit();
-        FacesMessage message = new FacesMessage(target.getScreenName() + "is your friend now.");
+        FacesMessage message = new FacesMessage(target.getScreenName() + " is your friend now.");
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
@@ -206,6 +206,45 @@ public class UserController {
         em.remove(request);
         tx.commit();
         FacesMessage message = new FacesMessage("You've declined " + target.getScreenName() + "'s request.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void delete() {
+        List<Requests> list = (List<Requests>) em.createNamedQuery("Requests.findByRequestee").setParameter("requestee", user).getResultList();
+        Requests request = null;
+//        System.out.println(user.getScreenName() + " " + target.getScreenName());
+        for (Requests r : list) {
+            if ((r.getRequester().equals(target)) && (r.getRequestee().equals(user))) {
+                request = r;
+            }
+        }
+    }
+
+    public void deleteFriend() {
+        List<Friends> list1 = (List<Friends>) em.createNamedQuery("Friends.findByUser").setParameter("user", user).getResultList();
+        List<Friends> list2 = (List<Friends>) em.createNamedQuery("Friends.findByUser").setParameter("user", target).getResultList();
+        Friends friendship1 = null;
+        Friends friendship2 = null;
+        for (Friends f : list1) {
+            if ((f.getFriend().equals(target)) && (f.getUser().equals(user))) {
+                friendship1 = f;
+            }
+        }
+
+        for (Friends f : list2) {
+            if ((f.getFriend().equals(user)) && (f.getUser().equals(target))) {
+                friendship2 = f;
+            }
+        }
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        em.remove(friendship1);
+        tx.commit();
+        tx = em.getTransaction();
+        tx.begin();
+        em.remove(friendship2);
+        tx.commit();
+        FacesMessage message = new FacesMessage(target.getScreenName() + " has been removed from your friend list.");
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 

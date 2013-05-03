@@ -25,7 +25,7 @@ public class FriendsController {
     @ManagedProperty(value = "#{userController.user}")
     private User user;
     private EntityManager em;
-    private List<User> friends = new ArrayList<User>();
+    private List<User> friends;
 
     /**
      * Creates a new instance of resultController
@@ -43,6 +43,7 @@ public class FriendsController {
     }
 
     public List<User> getFriends() {
+        friends = new ArrayList<User>();
         List<Friends> list = (List<Friends>) em.createNamedQuery("Friends.findByUser").setParameter("user", user).getResultList();
         if (!list.isEmpty()) {
             for (Friends f : list) {

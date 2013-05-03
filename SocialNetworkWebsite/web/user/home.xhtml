@@ -34,7 +34,7 @@
                 <br/>
                 <h3>Notifications</h3>
                 <h:form>
-                    <p:dataTable var="requester" value="#{notificationController.requesters}" style="font-size: small">
+                    <p:dataTable id="notification" var="requester" value="#{notificationController.requesters}" style="font-size: small">
                         <p:column headerText="Name">
                             <p:commandLink value="#{requester.screenName}" action="otherProfile?faces-redirect=true">
                                 <f:setPropertyActionListener value="#{requester}" target="#{userController.target}"/>
@@ -42,10 +42,10 @@
                         </p:column>
 
                         <p:column>
-                            <p:commandButton value="Agree" action="#{userController.agree()}" style="width: 80px" update="@form :friendList">
+                            <p:commandButton value="Agree" action="#{userController.agree()}" style="width: 80px" update="@form :friendList :superForm:growl">
                                 <f:setPropertyActionListener value="#{requester}" target="#{userController.target}"/>
                             </p:commandButton>
-                            <p:commandButton value="Decline" action="#{userController.decline()}" style="width: 80px" update="@form :friendList">
+                            <p:commandButton value="Decline" action="#{userController.decline()}" style="width: 80px" update="@form :friendList :superForm:growl">
                                 <f:setPropertyActionListener value="#{requester}" target="#{userController.target}"/>
                             </p:commandButton>
                         </p:column>
@@ -97,19 +97,27 @@
             </p:layoutUnit>
 
             <p:layoutUnit position="east" header="Friends" size="250">
-                <p:dataTable id="friendList" var="friend" value="#{friendsController.friends}" style="font-size: small">
-                    <p:column>
-                        <p:graphicImage value="#{imageController.profileImage}" width="50" height="50">
-                            <f:param name="id" value="#{friend.id}"/>
-                        </p:graphicImage>
-                    </p:column>
-                    
-                    <p:column headerText="Name">
-                        <p:commandLink value="#{friend.screenName}" action="friendHome.xhtml?faces-redirect=true">
-                            <f:setPropertyActionListener value="#{friend}" target="#{userController.target}"/>
-                        </p:commandLink>
-                    </p:column>
-                </p:dataTable>
+                <h:form  id="friendList">
+                    <p:dataTable var="friend" value="#{friendsController.friends}" style="font-size: small">
+                        <p:column>
+                            <p:graphicImage value="#{imageController.profileImage}" width="50" height="50">
+                                <f:param name="id" value="#{friend.id}"/>
+                            </p:graphicImage>
+                        </p:column>
+
+                        <p:column headerText="Name">
+                            <p:commandLink value="#{friend.screenName}" action="friendHome.xhtml?faces-redirect=true">
+                                <f:setPropertyActionListener value="#{friend}" target="#{userController.target}"/>
+                            </p:commandLink>
+                        </p:column>
+
+                        <p:column>
+                            <p:commandButton value="Delete" action="#{userController.deleteFriend()}" update="@form :superForm:growl">
+                                <f:setPropertyActionListener value="#{friend}" target="#{userController.target}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
             </p:layoutUnit>
         </p:layout>
 

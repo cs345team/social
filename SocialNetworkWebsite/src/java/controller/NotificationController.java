@@ -29,7 +29,7 @@ public class NotificationController {
     @ManagedProperty(value = "#{userController.user}")
     private User user;
     private EntityManager em;
-    private List<User> requesters = new ArrayList<User>();
+    private List<User> requesters;
 
     /**
      * Creates a new instance of NotificationController
@@ -39,12 +39,14 @@ public class NotificationController {
     }
 
     public List<User> getRequesters() {
+        requesters = new ArrayList<User>();
         List<Requests> requestList = (List<Requests>) em.createNamedQuery("Requests.findByRequestee").setParameter("requestee", user).getResultList();
         if (!requestList.isEmpty()) {
             for (Requests r : requestList) {
                 requesters.add(r.getRequester());
             }
         }
+        System.out.println(requesters.size());
         return requesters;
     }
 
