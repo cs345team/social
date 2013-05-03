@@ -72,6 +72,10 @@ CREATE TABLE `invite_code` (
 ) AUTO_INCREMENT = 1;
 
 INSERT INTO user(email, passwd, screen_name, confirmation_status) VALUES ('admin@suffolk.edu', 'admin', 'Administrator', 1);
+INSERT INTO user(email, passwd, screen_name, confirmation_status) VALUES ('a@suffolk.edu', 'admin', 'Tom', 1);
+INSERT INTO user(email, passwd, screen_name, confirmation_status) VALUES ('b@suffolk.edu', 'admin', 'John', 1);
+INSERT INTO user(email, passwd, screen_name, confirmation_status) VALUES ('c@suffolk.edu', 'admin', 'Jerry', 1);
 INSERT INTO invite_code(user_id, code) VALUES ('10000', 'ebfcf0c5-71ed-4735-a7af-7c2a4d8d5d8f');
 INSERT INTO invite_code(user_id, code) VALUES ('10000', 'bcdda4dd-abc9-4b4e-9db0-c4fd63d9f519');
 INSERT INTO invite_code(user_id, code) VALUES ('10000', '2e701bed-9601-46b7-be46-c8b63b29e7b6');
+
